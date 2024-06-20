@@ -3,13 +3,19 @@ import ReactDOM from 'react-dom/client';
 import App from '~/App';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyles from '~/components/GlobalStyles';
+import GridSystem from '~/components/GridSystem';
+import { ThemeProvider } from '~/ThemeContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <GlobalStyles>
-            <App />
-        </GlobalStyles>
+        <GridSystem>
+            <GlobalStyles>
+                <ThemeProvider>
+                    <App />
+                </ThemeProvider>
+            </GlobalStyles>
+        </GridSystem>
     </React.StrictMode>,
 );
 

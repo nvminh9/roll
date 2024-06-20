@@ -1,5 +1,6 @@
 @import 'normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 :root {
 }
@@ -9,11 +10,1312 @@
     box-sizing: border-box;
 }
 
+#root {
+    height: 100%;
+}
+
 html {
     font-size: 62.5%;
+    height: 100%;
+    scroll-behavior: smooth;
 }
 
 body {
     font-size: 1.6rem;
     text-rendering: optimizeSpeed;
+    height: 100%;
+    width: auto;
+    margin: 0;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
 }
+
+/* CSS wrapper */
+.wrapper {
+    height: 100%;
+}
+/* CSS container */
+.container {
+    height: 100%;
+    margin: 0 auto;
+}
+
+/* CSS HeaderBack (phần đầy bài đầu xuống khỏi bị che) */
+.headerBack {
+    /* background-color: red; */
+    height: 70px;
+}
+/* ... */
+
+/* ----------- CSS Header ------------------------------------- */
+
+.headerContainer {
+    width: 100%;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background: linear-gradient(0deg, rgb(255 255 255 / 56%) 0%, rgb(255 255 255 / 54%) 100%);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    z-index: 1;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.headerContainer .btnExpandMenuContainer {
+    padding: 0;
+    text-align: center;
+}
+.headerContainer .btnExpandMenuContainer .btnExpandMenu {
+    background: rgba(0, 0, 0, 0.459);
+    color: whitesmoke;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+.headerContainer .btnExpandMenuContainer .btnExpandMenu i {
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+.headerContainer .btnExpandMenuContainer .btnExpandMenu:hover i {
+    transform: scale(1.2);
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+.headerContainer .logoImg {
+    height: 100%;
+    text-align: center;
+}
+.headerContainer .logoImg img {
+    object-fit: cover;
+    /* object-position: center; */
+    width: 50%;
+    height: 100%;
+}
+
+.headerContainer .headerContainerMiddle,
+.headerContainerRight {
+    /* height: 100%; */
+    width: 50%;
+    /* background-color: red; */
+    display: grid;
+    justify-content: right;
+    padding: 0;
+}
+.headerContainer .headerContainerMiddle ul {
+    display: flex;
+    list-style: none;
+    /* height: 100%; */
+    align-items: center;
+    padding: 0;
+}
+.headerContainer .headerContainerMiddle li {
+    /* padding: 5px; */
+}
+.headerContainer .headerContainerMiddle li button {
+    font-size: 26px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    padding: 3px 5px;
+    cursor: pointer;
+    margin: 0px 5px;
+    // color: black;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.headerContainer .headerContainerMiddle li span {
+    text-wrap: nowrap;
+    font-size: 26px;
+    font-weight: 600;
+}
+.headerContainer .headerContainerMiddle li button:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+
+/* ----------- Hết CSS Header --------------------------------- */
+
+/* ----------- CSS khung bên Trái (leftContainer) ------------- */
+
+.leftContainer {
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    position: relative;
+}
+/* logoZone */
+.leftContainer .logoZone {
+    height: 68.4px;
+    margin: 0;
+}
+.logoImg {
+    height: 100%;
+    text-align: center;
+}
+.logoImg img {
+    object-fit: cover;
+    /* object-position: center; */
+    /* width: 25%; */
+    height: 100%;
+}
+/* hết logoZone */
+
+/* menuZone */
+.leftContainer .menuZone {
+    margin: 0;
+}
+.leftContainer .menuZone .col {
+    margin: 10px 0px 10px 0px;
+}
+.leftContainer .menuZone button {
+    font-weight: 500;
+    font-size: 20px;
+    width: 100%;
+    padding: 5%;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    border-radius: 10px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.leftContainer .menuZone button:hover {
+    background: #0f1112;
+    color: white;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.leftContainer .menuZone button:hover .numberNoti {
+    background: white;
+    color: black;
+}
+.leftContainer .menuZone button i {
+    float: left;
+    padding-top: 2%;
+}
+.leftContainer .menuZone button span {
+    margin-left: 13px;
+    float: left;
+    padding-top: 2%;
+}
+.leftContainer .menuZone button .notiTxt {
+    margin-left: 5px;
+}
+.leftContainer .menuZone button .numberNoti {
+    float: right;
+    color: white;
+    background-color: black;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+.leftContainer .menuZone .CtnbtnProfile .btnProfile {
+}
+.leftContainer .menuZone .CtnbtnProfile .btnProfile img {
+    vertical-align: middle;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
+    /* border: 0.2px solid dimgrey; */
+}
+.leftContainer .menuZone .CtnbtnProfile .btnProfile span {
+}
+/* hết menuZone */
+
+/* musicPlayerZone */
+.leftContainer .musicPlayerZone {
+    /* height: 120px; */
+    /* margin-top: 40%; */
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.leftContainer .CtnmusicPlayer {
+    /* background-color: rgb(196, 196, 196); */
+    /* background-color: #D9D9D9; */
+    background-color: #87878750;
+    border: none;
+    border-radius: 10px;
+    padding: 0;
+    height: fit-content;
+}
+.leftContainer .CtnmusicPlayer .musicPLayerTop {
+    width: 100%;
+    display: flex;
+    padding: 5px;
+}
+.leftContainer .CtnmusicPlayer .musicPLayerTop .musicPlayerTopSongImg {
+    padding: 0;
+}
+.leftContainer .CtnmusicPlayer .musicPLayerTop .musicPlayerTopSongImg img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+.leftContainer .CtnmusicPlayer .musicPLayerTop .musicPlayerTopInfo .row {
+    margin: 0px 0px 5px 0px;
+}
+.leftContainer .CtnmusicPlayer .musicPLayerTop .musicPlayerTopInfo .musicPlayerTopSettings {
+    padding: 0;
+}
+.leftContainer .CtnmusicPlayer .musicPLayerTop .musicPlayerTopInfo .musicPlayerTopSettings button {
+    float: right;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 5px;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.leftContainer .CtnmusicPlayer .musicPLayerTop .musicPlayerTopInfo .musicPlayerTopSettings button:hover {
+    background: black;
+    color: white;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.leftContainer .CtnmusicPlayer .musicPLayerTop .musicPlayerTopInfo .musicPlayerTopSongName {
+    text-align: center;
+}
+.leftContainer .CtnmusicPlayer .musicPLayerTop .musicPlayerTopInfo .musicPlayerTopFeature button {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    border-radius: 5px;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.leftContainer .CtnmusicPlayer .musicPLayerTop .musicPlayerTopInfo .musicPlayerTopFeature button:hover {
+    transform: scale(1.2);
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.leftContainer .CtnmusicPlayer .musicPLayerBottom {
+    margin: 4%;
+    /* height: 25%; */
+}
+.leftContainer .CtnmusicPlayer .musicPLayerBottom .musicPlayerBottomTimeLine {
+}
+.leftContainer .CtnmusicPlayer .musicPLayerBottom .musicPlayerBottomTimeLine span {
+    background-color: black;
+    border: none;
+    border-radius: 15px;
+    height: 3.7px;
+    display: block;
+}
+/* hết musicPlayerZone */
+
+/* ----------- Hết CSS khung bên Trái (leftContainer) --------- */
+
+/* ----------- CSS Khung ở giữa (middleContainer) ------------- */
+
+.middleContainer {
+    padding: 0;
+    height: 100%;
+    /* background-color: gainsboro; */
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* transition: 0.30s;
+    -webkit-transition: 0.30s;
+    -moz-transition: 0.30s;
+    -ms-transition: 0.30s;
+    -o-transition: 0.30s; */
+}
+.middleContainer::-webkit-scrollbar {
+    display: none;
+}
+/* CSS bài đăng */
+.postWrapper {
+}
+.postContainer {
+    /* height: 400px; */
+    /* background-color: antiquewhite; */
+    padding: 10px;
+}
+/* Post Header */
+.postContainer .postHeader {
+    /* height: 15%; */
+    background-color: black;
+    border-radius: 10px 10px 0px 0px;
+    display: flex;
+    padding: 15px;
+}
+.postContainer .postHeader .poster {
+    height: 100%;
+    /* width: 50%; */
+    width: 100%;
+    display: flex;
+}
+.postContainer .postHeader .poster .posterAvatar {
+    height: 100%;
+    width: fit-content;
+    justify-content: start;
+    align-items: center;
+    display: grid;
+}
+.postContainer .postHeader .poster .posterAvatar .btnPosterAvatar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    /* vertical-align: middle; */
+    width: fit-content;
+    border-radius: 50%;
+}
+.postContainer .postHeader .poster .posterAvatar img {
+    vertical-align: middle;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
+    border: 0.2px solid dimgrey;
+}
+
+.postContainer .postHeader .poster .posterInfo {
+    height: 100%;
+    width: fit-content;
+    justify-content: start;
+    align-items: center;
+    display: grid;
+}
+.postContainer .postHeader .poster .posterInfo button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.postContainer .postHeader .poster .posterInfo .posterName {
+    font-size: 20px;
+    font-weight: 600;
+    color: whitesmoke;
+}
+.postContainer .postHeader .poster .posterInfo .posterName:hover {
+    text-decoration: underline;
+}
+.postContainer .postHeader .poster .posterInfo .posterTime {
+    font-size: 10px;
+    color: grey;
+    float: left;
+}
+
+/* ... */
+
+/* CSS phần 3 chấm của bài đăng (postExtend)  */
+.postExtend {
+    height: 100%;
+    /* width: 50%; */
+}
+/* ... */
+/* Post Content */
+.postContainer .postContent {
+    /* height: 75%; */
+    background-color: black;
+    /* padding: 0px 15px 0px 15px; */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* phần caption của bài đăng (postCaption) */
+.postContainer .postCaption {
+    padding: 0px 10px 10px 25px;
+    background: black;
+}
+.postContainer .postCaption span {
+    color: whitesmoke;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    word-spacing: 1.3px;
+}
+/* phần hình ảnh của bài đăng (postImages) */
+.postContainer .postContent .postImages {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: auto;
+    scroll-snap-type: x;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* for firefox */
+    position: relative;
+    /* z-index: 4; */
+}
+.postContainer .postContent .postImages:hover {
+    cursor: grab;
+}
+.postImages::-webkit-scrollbar {
+    display: none;
+}
+.postContainer .postContent .postImages .postImageContainer {
+    padding: 3px;
+    margin: 0 auto;
+    height: 350px;
+    scroll-snap-align: start;
+}
+.postContainer .postContent .postImages .postImageContainer video {
+    height: 100%;
+    border: 0.2px solid dimgrey;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+.postContainer .postContent .postImages .postImageContainer img {
+    height: 100%;
+    border: 0.2px solid dimgrey;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+/* phần nút di chuyển slide hình */
+.postContainer .postContent .btnLeftPostImagesContainer,
+.btnRightPostImagesContainer {
+    padding: 3px;
+}
+.postContainer .postContent .btnLeftPostImagesContainer .btnLeftPostImages,
+.btnRightPostImagesContainer .btnRightPostImages {
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.postContainer .postContent .btnLeftPostImagesContainer .btnLeftPostImages:hover,
+.btnRightPostImagesContainer .btnRightPostImages:hover {
+    background-color: rgba(255, 255, 255, 0.74);
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.postContainer .postContent .btnLeftPostImagesContainer .btnLeftPostImages i,
+.btnRightPostImagesContainer .btnRightPostImages i {
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.postContainer .postContent .btnLeftPostImagesContainer .btnLeftPostImages:active i {
+    transform: translateX(-2px);
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.postContainer .postContent .btnRightPostImagesContainer .btnRightPostImages:active i {
+    transform: translateX(2px);
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+/* ... */
+/* Post Interact */
+.postContainer .postInteract {
+    /* height: 10%; */
+    background-color: black;
+    border-radius: 0px 0px 10px 10px;
+}
+/* Phần tim/xem bình luận/chia sẻ/  (postReact) */
+.postContainer .postInteract .postReact {
+    display: flex;
+    padding: 3px 10px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    /* padding-top: 0px;
+    padding-bottom: 0px; */
+}
+.postContainer .postInteract .postReact .btnReactContainer {
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.postContainer .postInteract .postReact .btnReactContainer span {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0px 5px;
+}
+.postContainer .postInteract .postReact .btnReactContainer .btnReact {
+    background: transparent;
+    color: black;
+    border: none;
+    color: whitesmoke;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 4px 6px;
+    /* margin-right: 5px; */
+}
+.postContainer .postInteract .postReact .btnReactContainer .btnReact:hover {
+    background-color: rgba(131, 131, 131, 0.438);
+}
+.postContainer .postInteract .postReact .btnReactContainer .btnLike:hover {
+    color: #ff3838;
+}
+.postContainer .postInteract .postReact .btnReactContainer .btnComment:hover {
+    color: #3ae374;
+}
+.postContainer .postInteract .postReact .btnReactContainer .btnShare:hover {
+    color: #17c0eb;
+}
+/* ... */
+/* Phần Nhập bình luận (postComment) */
+.postContainer .postInteract .postComment {
+    padding: 10px;
+    padding-top: 0px;
+    display: flex;
+}
+.postContainer .postInteract .postComment .forminputComment {
+    width: 100%;
+}
+.postContainer .postInteract .postComment .inputComment {
+    border: none;
+    /* border-radius: 10px; */
+    padding: 10px;
+    width: 100%;
+    font-size: 14px;
+    background: transparent;
+    color: whitesmoke;
+    border-bottom: 0.5px solid dimgrey;
+}
+/* ... */
+/* ... */
+/* Hết CSS bài đăng */
+
+/* ----------- Hết CSS Khung ở giữa (middleContainer) --------- */
+
+/* ----------- Phần CSS Khung bên phải (rightContainer) --------- */
+
+.rightContainer {
+    position: relative;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+/* CSS phần Story */
+.rightContainer .storyContainer {
+}
+.rightContainer .storyContainer .storyContainerTitle {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 23px;
+}
+.rightContainer .storyContainer .storyContainerTitle i {
+    color: #243cfc;
+}
+.rightContainer .storyContainer .storyContainerTitle span {
+    margin: 0px 10px;
+    font-weight: 900;
+}
+.rightContainer .storyContainer .storyContainerIcon {
+}
+.rightContainer .storyContainer .storyContainerIcon img {
+}
+.rightContainer .storyContainer .listStoryContainer {
+    display: grid;
+    padding: 10px 0px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.listStoryContainer::-webkit-scrollbar-track {
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+    background-color: none;
+    border-radius: 5px;
+}
+
+.listStoryContainer::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    border-radius: 5px;
+    background-color: none;
+}
+
+.listStoryContainer::-webkit-scrollbar-thumb {
+    /* background-color: #000000; */
+    background-color: #87878750;
+}
+
+.rightContainer .storyContainer .listStory {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.rightContainer .storyContainer .listStory .story {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+.rightContainer .storyContainer .listStory .story .storyContent {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 0.5px solid black;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+.rightContainer .storyContainer .listStory .story .btnPlayStory {
+    background: none;
+    border: none;
+    width: 180px;
+    height: 240px;
+    padding: 0;
+    /* cursor: pointer; */
+}
+.rightContainer .storyContainer .listStory .story button {
+}
+.rightContainer .storyContainer .listStory .story .storyInfo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #87878750;
+    border-radius: 10px;
+    border: 0.5px solid black;
+    margin-top: 5px;
+    padding: 3px;
+}
+.rightContainer .storyContainer .listStory .story .storyInfo img {
+    vertical-align: middle;
+    width: 27.5px;
+    height: 27.5px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
+    float: left;
+}
+/* hết CSS phần Story */
+
+/* CSS phần Suggestion */
+.rightContainer .suggestContainer {
+    margin-top: 15px;
+}
+.rightContainer .suggestContainer .suggestContainerTitle {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 23px;
+    margin-bottom: 20px;
+}
+.rightContainer .suggestContainer .suggestContainerTitle span {
+    margin: 0px 10px;
+    font-weight: 700;
+}
+.rightContainer .suggestContainer .listSuggestContainer {
+    /* border: .5px solid black; */
+    /* margin-top: 10px; */
+    height: 220px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.listSuggestContainer::-webkit-scrollbar-track {
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+    background: none;
+}
+
+.listSuggestContainer::-webkit-scrollbar {
+    width: 6px;
+    background: none;
+}
+
+.listSuggestContainer::-webkit-scrollbar-thumb {
+    /* background-color: #000000; */
+    background-color: #87878750;
+}
+
+.rightContainer .suggestContainer .listSuggest {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.rightContainer .suggestContainer .suggest {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0px;
+}
+.rightContainer .suggestContainer .suggest .suggestName {
+    margin: 0px 20px;
+}
+.rightContainer .suggestContainer .suggest .suggestAvatar {
+    vertical-align: middle;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
+    border: 0.2px solid dimgrey;
+    margin: 0px 15px;
+}
+.rightContainer .suggestContainer .suggest .btnAddfriend {
+    margin: 0px 20px;
+    cursor: pointer;
+    background: #87878750;
+    // color: black;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    transition: 0.1s;
+    -webkit-transition: 0.1s;
+    -moz-transition: 0.1s;
+    -ms-transition: 0.1s;
+    -o-transition: 0.1s;
+}
+.rightContainer .suggestContainer .suggest .btnAddfriend:hover {
+    transform: scale(1.02);
+    transition: 0.1s;
+    -webkit-transition: 0.1s;
+    -moz-transition: 0.1s;
+    -ms-transition: 0.1s;
+    -o-transition: 0.1s;
+}
+/* hết CSS phần Suggestion */
+
+/* ----------- Hết CSS Khung bên phải (rightContainer) --------- */
+
+/* --------------- *** Dark Mode CSS Class *** ---------------- */
+.darkmode {
+    background: black;
+    color: whitesmoke;
+    /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.56) 0%, rgba(0, 0, 0, 0.54) 100%); */
+}
+.lightmode {
+    background: white;
+    color: black;
+}
+.headerDarkmode {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.56) 0%, rgba(0, 0, 0, 0.54) 100%);
+    color: whitesmoke;
+}
+.btnMenuDarkMode {
+    color: whitesmoke;
+}
+.btnAddfriendDarkMode {
+    color: whitesmoke;
+}
+.textDarkMode {
+    color: whitesmoke;
+}
+.postBackground {
+    background-color: black;
+}
+/* ------------------------------------------------------------ */
+
+/* ------------------- CSS Story Active ----------------------- */
+.storyActiveContainer .storyActive {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+.storyActiveContainer .storyActive .storyActiveContent {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.storyActiveContainer .storyActive .storyActiveContent video {
+    /* border: .5px solid #333; */
+    border-radius: 10px;
+}
+.storyActiveContainer .storyActive .btnLeftStoryActive,
+.btnRightStoryActive {
+    height: fit-content;
+    border: 0.5px solid #333;
+    font-size: 35px;
+    background: #87878750;
+    cursor: pointer;
+    height: 9.5%;
+    border-radius: 0px 10px 10px 0px;
+}
+.storyActiveContainer .storyActive .btnRightStoryActive {
+    border-radius: 10px 0px 0px 10px;
+}
+.storyActiveContainer .storyActive .btnLeftStoryActive i,
+.btnRightStoryActive i {
+    color: black;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.storyActiveContainer .storyActive .btnLeftStoryActive:hover i {
+    transform: translateX(-5px);
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.storyActiveContainer .storyActive .btnRightStoryActive:hover i {
+    transform: translateX(5px);
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+/*  */
+/* phần trên của story active */
+.infoStoryActiveContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    height: 9%;
+    position: absolute;
+    top: 5px;
+    z-index: 5;
+}
+.infoStoryActiveContainer .avatarStoryActive {
+    vertical-align: middle;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
+    margin: 5px 20px;
+    border: 0.5px solid #333;
+}
+.infoStoryActiveContainer .nameStoryActive {
+    font-weight: 600;
+    border: 0.5px solid #333;
+    background-color: rgba(255, 255, 255, 0.475);
+    border-radius: 8px;
+    padding: 2px;
+    margin: 5px 20px;
+    color: black;
+}
+.infoStoryActiveContainer .btnPlayPauseStoryActive {
+    background-color: rgba(105, 105, 105, 0.475);
+    border: none;
+    padding: 15px 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: black;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin: 5px 20px;
+}
+.infoStoryActiveContainer .btnPlayPauseStoryActive:hover {
+    background-color: rgba(187, 187, 187, 0.475);
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.infoStoryActiveContainer .btnMuteStoryActive {
+    background-color: rgba(105, 105, 105, 0.475);
+    border: 0.5px solid #333;
+    padding: 15px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: black;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin: 5px 20px;
+}
+.infoStoryActiveContainer .btnMuteStoryActive:hover {
+    background-color: rgba(187, 187, 187, 0.475);
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.infoStoryActiveContainer .btnCancelStoryActive {
+    background-color: rgba(105, 105, 105, 0.475);
+    border: none;
+    border: 0.5px solid #333;
+    padding: 15px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: black;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin: 5px 20px;
+}
+.infoStoryActiveContainer .btnCancelStoryActive:hover {
+    background-color: rgba(187, 187, 187, 0.475);
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+/* hết phần trên của story active */
+/* CSS phần dưới của Story Active */
+.interactStoryActive {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 9%;
+    position: absolute;
+    bottom: 5px;
+}
+.interactStoryActive .btnLikeStoryActive {
+    background-color: #1e1e1e50;
+    border: 1px solid #484848;
+    padding: 15px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    color: black;
+    font-size: 18px;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.interactStoryActive .btnLikeStoryActive i {
+    color: #484848;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+.interactStoryActive .btnLikeStoryActive:hover i {
+    transform: scale(1.2);
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+/* hết phần dưới của story Active */
+/* ---------------------------------------------------------------------- */
+
+/* ------------------- CSS Image Active ----------------------- */
+.imageActiveContainer .imageActive {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+.imageActiveContainer .imageActive .imageActiveContent {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+/* .imageActiveContainer .imageActive .imageActiveContent img{
+    height: 100%;
+    width: 100%;
+} */
+.imageActiveContainer .imageActive .btnLeftImageActive,
+.btnRightImageActive {
+    height: 100%;
+    border: none;
+    font-size: 35px;
+    background: rgba(105, 105, 105, 0.444);
+    cursor: pointer;
+}
+.imageActiveContainer .imageActive .btnLeftImageActive i,
+.btnRightImageActive i {
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.imageActiveContainer .imageActive .btnLeftImageActive:hover i {
+    transform: translateX(-5px);
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.imageActiveContainer .imageActive .btnRightImageActive:hover i {
+    transform: translateX(5px);
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+/* ---------------------------------------------------------------------- */
+
+/* ---------------------------*** CSS TRANG CÁ NHÂN ***------------------------------------ */
+.profileContainer {
+}
+.profileContainer .profileTopInfo {
+    padding: 0;
+    position: relative;
+}
+.profileContainer .profileTopInfo .coverImageContainer {
+    height: 225px;
+    width: 100%;
+}
+.profileContainer .profileTopInfo .coverImageContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+}
+.profileContainer .profileTopInfo .avatarImageContainer {
+    position: absolute;
+    top: 57%;
+    border-radius: 50%;
+    margin-left: 25px;
+}
+.profileContainer .profileTopInfo .avatarImageContainer img {
+    vertical-align: middle;
+    width: 145px;
+    height: 145px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
+    border: 4px solid black;
+    cursor: pointer;
+}
+.profileContainer .profileTopInfo .profileOptions {
+}
+.profileContainer .profileTopInfo .profileOptions .btnEditProfile {
+    cursor: pointer;
+    background: #adadad;
+    color: black;
+    border: 1px solid black;
+    border-radius: 18px;
+    padding: 10px;
+    float: right;
+    transition: 0.1s;
+    margin: 5px;
+    margin-top: 10px;
+    -webkit-transition: 0.1s;
+    -moz-transition: 0.1s;
+    -ms-transition: 0.1s;
+    -o-transition: 0.1s;
+}
+.profileContainer .profileTopInfo .profileOptions .btnEditProfile:hover {
+    transform: scale(1.01);
+    transition: 0.1s;
+    -webkit-transition: 0.1s;
+    -moz-transition: 0.1s;
+    -ms-transition: 0.1s;
+    -o-transition: 0.1s;
+}
+.profileContainer .profileName {
+    text-align: center;
+    padding: 15px;
+    font-weight: 700;
+    font-size: 22px;
+}
+.profileBottomInfo {
+    margin-top: 75px;
+    display: grid;
+}
+.profileBottomInfo .profileJoinAt,
+.profileFriendCount {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 300;
+}
+.profileFeatures {
+    display: flex;
+    border-bottom: 0.5px solid dimgrey;
+    margin-top: 15px;
+}
+.btnProfilePostList,
+.btnProfileFriendList {
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px;
+    border-bottom: 3px solid transparent;
+}
+.profileFeatures .btnProfilePostList:hover,
+.btnProfileFriendList:hover {
+    /* border-bottom: 3px solid #243CFC; */
+    background: #87878750;
+}
+.btnProfileFeaturesActive {
+    border-bottom: 3px solid #243cfc;
+}
+/* ---------------------------------------------------------------------------------------- */
+
+/* ------------------------------*** CSS PAGE SETTING ***-----------------------------------*/
+.btnDarkmode {
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.btnDarkmode:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+}
+.CtnbtnDarkMode {
+    text-align: center;
+    padding: 10px;
+}
+/* ---------------------------------------------------------------------------------------- */
+
+/* ------------------------- Media Query -------------------------------- */
+/***** Thiết bị có kích thước chiều rộng màn hình 320px - 739px (màn hình điện thoại) *****/
+@media (min-width: 320px) and (max-width: 739px) {
+    .imageActiveContentSize {
+        width: 100%;
+    }
+    .storyActiveContentSize {
+        width: 100%;
+    }
+    .headerTitle {
+        width: 133px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+/***** Thiết bị có kích thước chiều rộng màn hình 740px - 1023px (màn hình tablet và laptop nhỏ) *****/
+@media (min-width: 740px) and (max-width: 1023px) {
+    .imageActiveContentSize {
+        width: 100%;
+    }
+    .storyActiveContentSize {
+        width: 100%;
+    }
+}
+/***** Thiết bị có kích thước chiều rộng màn hình 1024px - 1239px (màn của PC or Laptop) *****/
+@media (min-width: 1024px) and (max-width: 1239px) {
+    .imageActiveContentSize {
+        /* width: 100%; */
+        height: 100%;
+    }
+    .storyActiveContentSize {
+        height: 100%;
+        width: 80%;
+    }
+    .hideStoryBtn {
+        display: none;
+    }
+}
+/***** Thiết bị có kích thước chiều rộng màn hình >= 740px (màn từ Tablet trở lên) *****/
+@media (min-width: 740px) {
+    .imageActiveContentSize {
+        /* width: 100%; */
+        height: 100%;
+    }
+    .storyActiveContentSize {
+        height: 100%;
+    }
+}
+/***** Thiết bị có kích thước chiều rộng màn hình >= 1113px (PC or Laptop có màn lớn) *****/
+@media (min-width: 1113px) {
+    .imageActiveContentSize {
+        /* width: 100%; */
+        height: 100%;
+    }
+    .storyActiveContentSize {
+        height: 100%;
+        width: 80%;
+    }
+    .hideStoryBtn {
+        display: none;
+    }
+}
+/* ---------------------------------------------------------------------- */

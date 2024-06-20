@@ -1,8 +1,11 @@
-import { HeaderOnly } from '~/components/Layouts';
+// import { HeaderOnly } from '~/components/Layouts';
 //
-import Home from '~/pages/Home';
+import NewFeed from '~/pages/NewFeed';
+import NotiPage from '~/pages/NotiPage';
 import Message from '~/pages/Message';
 import Profile from '~/pages/Profile';
+import Search from '~/pages/Search';
+import SettingPage from '~/pages/SettingPage';
 
 // routes cho user không cần đăng nhập {...}
 const publicRoutes = [];
@@ -15,9 +18,12 @@ const publicRoutes = [];
     - HeaderOnly: là layout chỉ có phần Header
 */
 const privateRoutes = [
-    { path: '/', component: Home },
+    { path: '/', component: NewFeed },
     { path: '/profile', component: Profile },
-    { path: '/message', component: Message, layout: HeaderOnly },
+    { path: '/notification', component: NotiPage },
+    { path: '/search', component: Search },
+    { path: '/message', component: Message },
+    { path: '/setting', component: SettingPage },
 ];
 
 export { publicRoutes, privateRoutes };
