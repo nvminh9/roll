@@ -17,6 +17,7 @@ function TitleHeader({ children }) {
     if (children.type.name === 'SettingPage') {
         return 'Cài đặt';
     }
+    return;
 }
 
 export default TitleHeader;
