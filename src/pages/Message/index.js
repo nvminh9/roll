@@ -1,4 +1,10 @@
+import { useEffect } from 'react';
+
 function Message() {
+    useEffect(() => {
+        document.getElementById('headerTitleID').innerText = 'Nhắn tin';
+    }, []);
+
     return (
         <>
             {/* <!-- Phần Giao diện trang tìm kiếm --> */}

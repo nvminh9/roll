@@ -1,9 +1,13 @@
 // themeContext
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { ThemeContext } from '~/ThemeContext';
 
 function NotiPage() {
     const theme = useContext(ThemeContext);
+
+    useEffect(() => {
+        document.getElementById('headerTitleID').innerText = 'Thông báo';
+    }, []);
 
     return (
         <>

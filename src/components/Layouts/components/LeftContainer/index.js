@@ -5,6 +5,8 @@ import { ThemeContext } from '~/ThemeContext';
 
 function LeftContainer() {
     const theme = useContext(ThemeContext);
+    const userName = localStorage.getItem('nHuRsE8raEvatRa').slice(0, -14);
+    const userAvatarUrl = localStorage.getItem('jssE9SdeWedeE4S').slice(0, -14);
 
     return (
         <>
@@ -28,8 +30,8 @@ function LeftContainer() {
                                     theme.theme === 'dark' ? 'btnMenuDarkMode' : '',
                                 ].join(' ')}
                             >
-                                <img src=""></img>
-                                <span>username</span>
+                                <img src={userAvatarUrl}></img>
+                                <span>{userName}</span>
                             </button>
                         </Link>
                     </div>

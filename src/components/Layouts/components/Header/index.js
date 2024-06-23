@@ -40,9 +40,7 @@ function Header({ children }) {
                             </button>
                         </li>
                         <li className="headerTitle">
-                            <span>
-                                <TitleHeader>{children}</TitleHeader>
-                            </span>
+                            <span id="headerTitleID">Bảng tin</span>
                         </li>
                         <li className="hideStoryBtn" style={{ width: '157px' }}>
                             <button

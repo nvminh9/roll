@@ -1,8 +1,39 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { ThemeContext } from '~/ThemeContext';
+import useLogout from '~/hooks/useLogout';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from '~/api/axios';
+import useAuth from '~/hooks/useAuth';
 
 function SettingPage() {
     const theme = useContext(ThemeContext);
+    const navigate = useNavigate();
+    const { auth, setAuth } = useAuth();
+
+    useEffect(() => {
+        document.getElementById('headerTitleID').innerText = 'Cài đặt';
+    }, []);
+
+    const logout = async () => {
+        try {
+            const response = await axios.get('/api/logout', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('rAct_T').slice(0, -14)}`,
+                },
+            });
+        } catch (err) {
+            console.error(err);
+        }
+        //
+        localStorage.setItem('rAct_T', '');
+        localStorage.setItem('rAct_R', '');
+        localStorage.setItem('nHuRsE8raEvatRa', '');
+        localStorage.setItem('jssE9SdeWedeE4S', '');
+        setAuth({});
+        //
+        navigate('/login');
+    };
 
     return (
         <>
@@ -27,7 +58,12 @@ function SettingPage() {
                 {/* Đăng xuất */}
                 <div className="col l-12 m-12 c-12 CtnbtnDarkMode">
                     Đăng xuất tài khoản :
-                    <button id="btnDarkmodeid" className="btnMenu btnDarkmode" style={{ marginLeft: '10px' }}>
+                    <button
+                        id="btnDarkmodeid"
+                        className="btnMenu btnDarkmode"
+                        style={{ marginLeft: '10px' }}
+                        onClick={logout}
+                    >
                         <span style={{ marginLeft: '5px' }}>Logout</span>
                     </button>
                 </div>

@@ -378,10 +378,11 @@ body {
 }
 /* CSS bài đăng */
 .postWrapper {
+    padding: 5px;
 }
 .postContainer {
-    /* height: 400px; */
-    /* background-color: antiquewhite; */
+    background-color: black;
+    border-radius: 10px;
     padding: 10px;
 }
 /* Post Header */
@@ -635,6 +636,73 @@ body {
     background: transparent;
     color: whitesmoke;
     border-bottom: 0.5px solid dimgrey;
+    border-radius: 0px;
+}
+.postContainer .postCommentContainer {
+    background-color: transparent;
+    height: 330px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.postCommentContainer::-webkit-scrollbar-track {
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+    background-color: none;
+    border-radius: 5px;
+}
+
+.postCommentContainer::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: none;
+}
+
+.postCommentContainer::-webkit-scrollbar-thumb {
+    /* background-color: #000000; */
+    background-color: #87878750;
+    border-radius: 5px;
+}
+.postContainer .postCommentContainer .comment {
+    background-color: rgb(15, 15, 15);
+    margin: 8px;
+    position: relative;
+    padding: 7px;
+    border-radius: 10px;
+    display: grid;
+    justify-content: left;
+    align-items: center;
+}
+.postContainer .postCommentContainer .comment .commentContent {
+    font-size: 14px;
+    font-weight: 300;
+    padding-left: 70px;
+    margin-top: -30px;
+}
+.postContainer .postCommentContainer .poster {
+    display: flex;
+    justify-content: left;
+}
+.postContainer .postCommentContainer .poster button {
+    border: none;
+    background-color: transparent;
+    color: whitesmoke;
+}
+.postContainer .postCommentContainer .poster img {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
+}
+.postContainer .postCommentContainer .poster .posterTime {
+    font-size: 10px;
+    color: grey;
+    float: left;
+}
+.postContainer .postCommentContainer .poster .posterName {
+    font-size: 14px;
+    font-weight: 600;
+    color: whitesmoke;
 }
 /* ... */
 /* ... */
@@ -1226,6 +1294,33 @@ body {
 }
 .btnProfileFeaturesActive {
     border-bottom: 3px solid #243cfc;
+}
+/* ---------------------------------------------------------------------------------------- */
+
+/* -------------------------------*** CSS NEW FEEDS ***------------------------------------ */
+.newFeedsLoad {
+    color: #243cfc;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    text-align: center;
+    font-size: 28px;
+}
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 /* ---------------------------------------------------------------------------------------- */
 

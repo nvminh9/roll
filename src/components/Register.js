@@ -3,16 +3,36 @@ import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from '../api/axios';
-// import './register.css';
+import '~/components/register.css';
+import roll_logo_blue from '~/resource/images/roll_logo_blue.png';
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 //
 const REGISTER_URL = '/api/register';
 
+function removeAscent(str) {
+    if (str === null || str === undefined) return str;
+    str = str.toLowerCase();
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, 'i');
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, 'o');
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u');
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y');
+    str = str.replace(/đ/g, 'd');
+    return str;
+}
+
+function isValid(string) {
+    var re = /^[a-zA-Z!@#\s\$%\^\&*\)\(+=._-]{4,14}$/g; // regex here
+    return re.test(removeAscent(string));
+}
+
 const Register = () => {
     const userRef = useRef();
     const errRef = useRef();
+
+    const navigate = useNavigate();
 
     const [name, setName] = useState('');
     const [validName, setValidName] = useState(false);
@@ -42,11 +62,16 @@ const Register = () => {
     const [success, setSuccess] = useState(false);
 
     useEffect(() => {
+        if (localStorage.getItem('rAct_T')) {
+            navigate('/', { replace: true });
+        }
+
+        document.title = 'Đăng ký';
         userRef.current.focus();
     }, []);
 
     useEffect(() => {
-        setValidName(USER_REGEX.test(name));
+        setValidName(isValid(name));
     }, [name]);
 
     useEffect(() => {
@@ -61,7 +86,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // if button enabled with JS hack
-        const v1 = USER_REGEX.test(name);
+        const v1 = isValid(name);
         const v2 = PWD_REGEX.test(password);
         if (!v1 || !v2) {
             setErrMsg('Invalid Entry');
@@ -101,175 +126,195 @@ const Register = () => {
     return (
         <>
             {success ? (
-                <section>
-                    <h1>Tạo tài khoản thành công !</h1>
-                    <p>
-                        <a href="#">Sign In</a>
-                    </p>
-                </section>
+                <div className="registerContainer">
+                    <section className="sectionRegister">
+                        <h1 style={{ fontWeight: '600', fontSize: '28px', color: 'black' }}>
+                            Tạo tài khoản thành công{' '}
+                        </h1>
+                        <i class="fa-solid fa-circle-check" style={{ color: '#63E6BE', fontSize: '45px' }}></i>
+                        <p>
+                            <Link to={'/login'}>Đăng nhập</Link>
+                        </p>
+                    </section>
+                </div>
             ) : (
-                <section>
-                    <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">
-                        {errMsg}
-                    </p>
-                    <h1>Tạo tài khoản</h1>
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="name">
-                            Tên người dùng:
-                            <FontAwesomeIcon icon={faCheck} className={validName ? 'valid' : 'hide'} />
-                            <FontAwesomeIcon icon={faTimes} className={validName || !name ? 'hide' : 'invalid'} />
-                        </label>
-                        <input
-                            type="text"
-                            id="name"
-                            ref={userRef}
-                            autoComplete="off"
-                            onChange={(e) => setName(e.target.value)}
-                            value={name}
-                            required
-                            aria-invalid={validName ? 'false' : 'true'}
-                            aria-describedby="uidnote"
-                            onFocus={() => setUserFocus(true)}
-                            onBlur={() => setUserFocus(false)}
-                        />
-                        <p id="uidnote" className={userFocus && name && !validName ? 'instructions' : 'offscreen'}>
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            4 to 24 characters.
-                            <br />
-                            Must begin with a letter.
-                            <br />
-                            Letters, numbers, underscores, hyphens allowed.
+                <div className="registerContainer">
+                    <section className="sectionRegister">
+                        <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">
+                            {errMsg}
                         </p>
-
-                        <label htmlFor="password">
-                            Mật khẩu:
-                            <FontAwesomeIcon icon={faCheck} className={validPwd ? 'valid' : 'hide'} />
-                            <FontAwesomeIcon icon={faTimes} className={validPwd || !password ? 'hide' : 'invalid'} />
-                        </label>
-                        <input
-                            type="password"
-                            id="password"
-                            onChange={(e) => setPassword(e.target.value)}
-                            value={password}
-                            required
-                            aria-invalid={validPwd ? 'false' : 'true'}
-                            aria-describedby="pwdnote"
-                            onFocus={() => setPwdFocus(true)}
-                            onBlur={() => setPwdFocus(false)}
-                        />
-                        <p id="pwdnote" className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}>
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            8 to 24 characters.
-                            <br />
-                            Must include uppercase and lowercase letters, a number and a special character.
-                            <br />
-                            Allowed special characters: <span aria-label="exclamation mark">!</span>{' '}
-                            <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span>{' '}
-                            <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
-                        </p>
-
-                        <label htmlFor="password_confirmation">
-                            Xác nhận mật khẩu:
-                            <FontAwesomeIcon
-                                icon={faCheck}
-                                className={validMatch && password_confirmation ? 'valid' : 'hide'}
+                        <img src={roll_logo_blue} style={{ width: '55px' }}></img>
+                        <h1 style={{ fontWeight: '600', fontSize: '28px', color: 'black' }}>Tạo tài khoản</h1>
+                        <form className="formRegister" onSubmit={handleSubmit}>
+                            <label htmlFor="name">
+                                <FontAwesomeIcon icon={faCheck} className={validName ? 'valid' : 'hide'} />
+                                <FontAwesomeIcon icon={faTimes} className={validName || !name ? 'hide' : 'invalid'} />
+                            </label>
+                            <input
+                                placeholder="Tên người dùng"
+                                type="text"
+                                id="name"
+                                ref={userRef}
+                                autoComplete="off"
+                                onChange={(e) => setName(e.target.value)}
+                                value={name}
+                                required
+                                aria-invalid={validName ? 'false' : 'true'}
+                                aria-describedby="uidnote"
+                                onFocus={() => setUserFocus(true)}
+                                onBlur={() => setUserFocus(false)}
                             />
-                            <FontAwesomeIcon
-                                icon={faTimes}
-                                className={validMatch || !password_confirmation ? 'hide' : 'invalid'}
+                            <p id="uidnote" className={userFocus && name && !validName ? 'instructions' : 'offscreen'}>
+                                <FontAwesomeIcon icon={faInfoCircle} />
+                                Yêu cầu từ 4 đến 24 ký tự.
+                                <br />
+                                Phải bắt đầu bằng chữ.
+                                <br />
+                                Cho phép chữ cái, chữ hoa, chữ thường và dấu cách.
+                            </p>
+                            <label htmlFor="password">
+                                <FontAwesomeIcon icon={faCheck} className={validPwd ? 'valid' : 'hide'} />
+                                <FontAwesomeIcon
+                                    icon={faTimes}
+                                    className={validPwd || !password ? 'hide' : 'invalid'}
+                                />
+                            </label>
+                            <input
+                                placeholder="Mật khẩu"
+                                type="password"
+                                id="password"
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
+                                required
+                                aria-invalid={validPwd ? 'false' : 'true'}
+                                aria-describedby="pwdnote"
+                                onFocus={() => setPwdFocus(true)}
+                                onBlur={() => setPwdFocus(false)}
                             />
-                        </label>
-                        <input
-                            type="password"
-                            id="password_confirmation"
-                            onChange={(e) => setPassword_confirmation(e.target.value)}
-                            value={password_confirmation}
-                            required
-                            aria-invalid={validMatch ? 'false' : 'true'}
-                            aria-describedby="confirmnote"
-                            onFocus={() => setMatchFocus(true)}
-                            onBlur={() => setMatchFocus(false)}
-                        />
-                        <p id="confirmnote" className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}>
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            Must match the first password input field.
+                            <p id="pwdnote" className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}>
+                                <FontAwesomeIcon icon={faInfoCircle} />
+                                Yêu cầu từ 8 đến 24 ký tự.
+                                <br />
+                                Phải bao gồm chữ hoa và chữ thường, số và ký tự đặc biệt.
+                                <br />
+                                Cho phép các ký tự đặc biệt: <span aria-label="exclamation mark">!</span>{' '}
+                                <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span>{' '}
+                                <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                            </p>
+                            <label htmlFor="password_confirmation">
+                                <FontAwesomeIcon
+                                    icon={faCheck}
+                                    className={validMatch && password_confirmation ? 'valid' : 'hide'}
+                                />
+                                <FontAwesomeIcon
+                                    icon={faTimes}
+                                    className={validMatch || !password_confirmation ? 'hide' : 'invalid'}
+                                />
+                            </label>
+                            <input
+                                placeholder="Xác nhận mật khẩu"
+                                type="password"
+                                id="password_confirmation"
+                                onChange={(e) => setPassword_confirmation(e.target.value)}
+                                value={password_confirmation}
+                                required
+                                aria-invalid={validMatch ? 'false' : 'true'}
+                                aria-describedby="confirmnote"
+                                onFocus={() => setMatchFocus(true)}
+                                onBlur={() => setMatchFocus(false)}
+                            />
+                            <p id="confirmnote" className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}>
+                                <FontAwesomeIcon icon={faInfoCircle} />
+                                Phải khớp với mật khẩu ở trên.
+                            </p>
+                            {/* email */}
+                            <label htmlFor="email"></label>
+                            <input
+                                placeholder="Email"
+                                type="email"
+                                id="email"
+                                // autoComplete="off"
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
+                                required
+                                aria-invalid={validName ? 'false' : 'true'}
+                                aria-describedby="uidnote"
+                                onFocus={() => setUserFocus(true)}
+                                onBlur={() => setUserFocus(false)}
+                            />
+                            {/* phoneNumber */}
+                            <label htmlFor="phoneNumber"></label>
+                            <input
+                                placeholder="Số điện thoại"
+                                maxLength="10"
+                                type="tel"
+                                id="phoneNumber"
+                                // autoComplete="off"
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                                value={phoneNumber}
+                                required
+                                aria-invalid={validName ? 'false' : 'true'}
+                                aria-describedby="uidnote"
+                                onFocus={() => setUserFocus(true)}
+                                onBlur={() => setUserFocus(false)}
+                            />
+                            {/* birth */}
+                            <label htmlFor="birth"></label>
+                            <input
+                                placeholder="Ngày sinh"
+                                type="date"
+                                id="birth"
+                                // autoComplete="off"
+                                onChange={(e) => setBirth(e.target.value)}
+                                value={birth}
+                                required
+                                aria-invalid={validName ? 'false' : 'true'}
+                                aria-describedby="uidnote"
+                                onFocus={() => setUserFocus(true)}
+                                onBlur={() => setUserFocus(false)}
+                            />
+                            {/* gender */}
+                            <label htmlFor="gender"></label>
+                            <input
+                                placeholder="Nam nhập 1, Nữ nhập 0"
+                                className="inputGenderRegister"
+                                id="gender"
+                                // autoComplete="off"
+                                onChange={(e) => setGender(e.target.value)}
+                                value={gender}
+                                required
+                                aria-invalid={validName ? 'false' : 'true'}
+                                aria-describedby="uidnote"
+                                onFocus={() => setUserFocus(true)}
+                                onBlur={() => setUserFocus(false)}
+                            />
+                            <button
+                                style={{
+                                    fontFamily: 'Nunito, sans-serif',
+                                    fontSize: '16px',
+                                    padding: '1rem',
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    marginTop: '1rem',
+                                    cursor: 'pointer',
+                                    color: 'whitesmoke',
+                                    background: 'black',
+                                }}
+                                className="btnRegister"
+                                disabled={!validName || !validPwd || !validMatch ? true : false}
+                            >
+                                Đăng ký
+                            </button>
+                        </form>
+                        <p style={{ color: 'black' }}>
+                            Đã có tài khoản ?
+                            <span className="line" style={{ marginLeft: '5px' }}>
+                                {/*put router link here*/}
+                                <Link to="/login">Đăng nhập</Link>
+                            </span>
                         </p>
-
-                        {/* email */}
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            type="email"
-                            id="email"
-                            ref={userRef}
-                            // autoComplete="off"
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
-                            required
-                            // aria-invalid={validName ? 'false' : 'true'}
-                            // aria-describedby="uidnote"
-                            // onFocus={() => setUserFocus(true)}
-                            // onBlur={() => setUserFocus(false)}
-                        />
-
-                        {/* phoneNumber */}
-                        <label htmlFor="phoneNumber">Số điện thoại:</label>
-                        <input
-                            type="tel"
-                            id="phoneNumber"
-                            ref={userRef}
-                            // autoComplete="off"
-                            onChange={(e) => setPhoneNumber(e.target.value)}
-                            value={phoneNumber}
-                            required
-                            // aria-invalid={validName ? 'false' : 'true'}
-                            // aria-describedby="uidnote"
-                            // onFocus={() => setUserFocus(true)}
-                            // onBlur={() => setUserFocus(false)}
-                        />
-
-                        {/* birth */}
-                        <label htmlFor="birth">Ngày sinh:</label>
-                        <input
-                            type="date"
-                            id="birth"
-                            ref={userRef}
-                            // autoComplete="off"
-                            onChange={(e) => setBirth(e.target.value)}
-                            value={birth}
-                            required
-                            // aria-invalid={validName ? 'false' : 'true'}
-                            // aria-describedby="uidnote"
-                            // onFocus={() => setUserFocus(true)}
-                            // onBlur={() => setUserFocus(false)}
-                        />
-
-                        {/* gender */}
-                        <label htmlFor="gender">Giới tính:</label>
-                        <input
-                            // type="date"
-                            id="gender"
-                            ref={userRef}
-                            // autoComplete="off"
-                            onChange={(e) => setGender(e.target.value)}
-                            value={gender}
-                            required
-                            // aria-invalid={validName ? 'false' : 'true'}
-                            // aria-describedby="uidnote"
-                            // onFocus={() => setUserFocus(true)}
-                            // onBlur={() => setUserFocus(false)}
-                        />
-
-                        <button disabled={!validName || !validPwd || !validMatch ? true : false}>Đăng ký</button>
-                    </form>
-                    <p>
-                        Đã đăng ký ?
-                        <br />
-                        <span className="line">
-                            {/*put router link here*/}
-                            <Link to="/login">Đăng nhập</Link>
-                        </span>
-                    </p>
-                </section>
+                    </section>
+                </div>
             )}
         </>
     );

@@ -1,12 +1,15 @@
 import { useRef, useState, useEffect } from 'react';
 import useAuth from '~/hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-
+//
+import '~/components/register.css';
+import roll_logo_blue from '~/resource/images/roll_logo_blue.png';
+//
 import axios from '~/api/axios';
 const LOGIN_URL = '/api/login';
 
 const Login = () => {
-    const { setAuth } = useAuth();
+    const { setAuth, persist, setPersist } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -21,6 +24,11 @@ const Login = () => {
     const [errMsg, setErrMsg] = useState('');
 
     useEffect(() => {
+        if (localStorage.getItem('rAct_T')) {
+            navigate('/', { replace: true });
+        }
+
+        document.title = 'Đăng nhập';
         userRef.current.focus();
     }, []);
 
@@ -37,10 +45,19 @@ const Login = () => {
                 withCredentials: true,
             });
             console.log(JSON.stringify(response?.data));
+            //
+            localStorage.setItem('rAct_T', response?.data?.data?.access_token + 'XrXoXlXl092B73');
+            localStorage.setItem('rAct_R', response?.data?.data?.user?.role + 'XrXoXlXl092B73');
+            //
+            localStorage.setItem('nHuRsE8raEvatRa', response?.data?.data?.user?.name + 'XrXoXlXl092B73');
+            localStorage.setItem('jssE9SdeWedeE4S', response?.data?.data?.user?.avatar + 'XrXoXlXl092B73');
+            //
             //console.log(JSON.stringify(response));
-            const accessToken = response?.data?.data.access_token;
-            const roles = response?.data?.data.user.role;
+            const accessToken = response?.data?.data?.access_token;
+            const roles = [response?.data?.data?.user?.role];
+            //
             setAuth({ user, pwd, roles, accessToken });
+            // console.log('Local ACT:', localStorage.getItem('rAct_T').slice(0, -14));
             setUser('');
             setPwd('');
             navigate(from, { replace: true });
@@ -58,36 +75,69 @@ const Login = () => {
         }
     };
 
-    return (
-        <section>
-            <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">
-                {errMsg}
-            </p>
-            <h1>Đăng nhập</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Email:</label>
-                <input
-                    type="email"
-                    id="username"
-                    ref={userRef}
-                    autoComplete="off"
-                    onChange={(e) => setUser(e.target.value)}
-                    value={user}
-                    required
-                />
+    const togglePersist = () => {
+        setPersist((prev) => !prev);
+    };
 
-                <label htmlFor="password">Mật khẩu:</label>
-                <input type="password" id="password" onChange={(e) => setPwd(e.target.value)} value={pwd} required />
-                <button type="submit">Đăng nhập</button>
-            </form>
-            <p>
-                Chưa có tài khoản ?
-                <br />
-                <span className="line">
-                    <Link to="/register">Đăng ký</Link>
-                </span>
-            </p>
-        </section>
+    useEffect(() => {
+        localStorage.setItem('persist', persist);
+    }, [persist]);
+
+    return (
+        <div className="registerContainer">
+            <section className="sectionRegister">
+                <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">
+                    {errMsg}
+                </p>
+                <img src={roll_logo_blue} style={{ width: '55px', margin: '10px' }}></img>
+                <h1 style={{ fontWeight: '600', fontSize: '28px', color: 'black' }}>Đăng nhập</h1>
+                <form onSubmit={handleSubmit} className="formRegister">
+                    <label htmlFor="username"></label>
+                    <input
+                        placeholder="Email"
+                        type="email"
+                        id="username"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setUser(e.target.value)}
+                        value={user}
+                        required
+                    />
+                    <label htmlFor="password"></label>
+                    <input
+                        placeholder="Mật khẩu"
+                        type="password"
+                        id="password"
+                        onChange={(e) => setPwd(e.target.value)}
+                        value={pwd}
+                        required
+                    />
+                    <button
+                        type="submit"
+                        style={{
+                            fontFamily: 'Nunito, sans-serif',
+                            fontSize: '16px',
+                            padding: '1rem',
+                            border: 'none',
+                            borderRadius: '10px',
+                            marginTop: '1rem',
+                            cursor: 'pointer',
+                            color: 'whitesmoke',
+                            background: 'black',
+                        }}
+                        className="btnRegister"
+                    >
+                        Đăng nhập
+                    </button>
+                </form>
+                <p style={{ color: 'black' }}>
+                    Chưa có tài khoản ?
+                    <span className="line" style={{ marginLeft: '5px' }}>
+                        <Link to="/register">Đăng ký</Link>
+                    </span>
+                </p>
+            </section>
+        </div>
     );
 };
 

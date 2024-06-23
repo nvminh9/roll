@@ -1,5 +1,3 @@
-// import { HeaderOnly } from '~/components/Layouts';
-//
 import NewFeed from '~/pages/NewFeed';
 import NotiPage from '~/pages/NotiPage';
 import Message from '~/pages/Message';
@@ -9,10 +7,10 @@ import SettingPage from '~/pages/SettingPage';
 import Login from '~/components/Login';
 import Register from '~/components/Register';
 import Unauthorized from '~/pages/Unauthorized';
-import { HeaderOnly } from '~/components/Layouts';
+// import { HeaderOnly } from '~/components/Layouts';
 
 // routes cho user không cần đăng nhập {...}
-// public routes
+// public routes (không yêu cầu đăng nhập)
 const publicRoutes = [
     { path: '/', component: Login, layout: null },
     { path: '/login', component: Login, layout: null },
@@ -27,8 +25,9 @@ const publicRoutes = [
     - null: là ko sử dụng layout nào
     - HeaderOnly: là layout chỉ có phần Header
 */
-// protect routes
+// protect routes (yêu cầu đăng nhập)
 const privateRoutes = [
+    { path: '/login', component: Login, layout: null },
     //
     { path: '/', component: NewFeed },
     { path: '/profile', component: Profile },

@@ -1,11 +1,15 @@
 // themeContext
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { ThemeContext } from '~/ThemeContext';
 import default_coverImage from '~/resource/images/default_coverImage.jpg';
 import default_avatar from '~/resource/images/default_avatar.jpg';
 
 function Profile() {
     const theme = useContext(ThemeContext);
+
+    useEffect(() => {
+        document.getElementById('headerTitleID').innerText = 'Trang cá nhân';
+    }, []);
 
     return (
         <>

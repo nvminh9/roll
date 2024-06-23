@@ -1,3 +1,4 @@
+// Hook này kết hợp với hook useRefreshToken để gửi token cho mỗi lần gọi tới API lấy dữ liệu sau khi đăng nhập
 import { axiosPrivate } from '../api/axios';
 import { useEffect } from 'react';
 import useRefreshToken from './useRefreshToken';
@@ -28,6 +29,7 @@ const useAxiosPrivate = () => {
                     prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
                     return axiosPrivate(prevRequest);
                 }
+
                 return Promise.reject(error);
             },
         );
