@@ -11,40 +11,40 @@ const NewFeed = () => {
     const [posts, setPosts] = useState();
     const navigate = useNavigate();
     const location = useLocation();
+    const { auth } = useAuth();
     //
     // const { auth } = useAuth();
     //
-    // Lấy Bài viết
-    useEffect(() => {
-        // Đặt tiêu đề của Header
-        document.getElementById('headerTitleID').innerText = 'Bảng tin';
-        //
+    // Hàm lấy Bài viết
+    const getPosts = async () => {
         let isMounted = true;
         const access_token = localStorage.getItem('rAct_T').slice(0, -14);
-
-        const getPosts = async () => {
-            try {
-                const response = await axios.get(NEWFEEDS_URL, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${access_token}`,
-                    },
-                });
-                //
-                //
-                // console.log(response.data);
-                isMounted && setPosts(response.data);
-            } catch (err) {
-                console.error(err);
-                navigate('/login', { state: { from: location }, replace: true });
-            }
-        };
-
-        getPosts();
-
+        //
+        try {
+            const response = await axios.get(NEWFEEDS_URL, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${access_token}`,
+                },
+            });
+            //
+            isMounted && setPosts(response.data);
+        } catch (err) {
+            console.error(err);
+            navigate('/login', { state: { from: location }, replace: true });
+        }
+        //
         return () => {
             isMounted = false;
         };
+    };
+    //
+    useEffect(() => {
+        // Đặt tiêu đề của Header
+        document.getElementById('headerTitleID').innerText = 'Bảng tin';
+        // Gọi hàm lấy bài viết
+        getPosts();
+        //
     }, []);
 
     return (

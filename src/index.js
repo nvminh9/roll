@@ -6,6 +6,7 @@ import GlobalStyles from '~/components/GlobalStyles';
 import GridSystem from '~/components/GridSystem';
 import { ThemeProvider } from '~/ThemeContext';
 import { AuthProvider } from './context/AuthProvider';
+import { NewFeedContextProvider } from './context/NewFeedProvider';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,9 +17,11 @@ root.render(
                 <ThemeProvider>
                     <Router>
                         <AuthProvider>
-                            <Routes>
-                                <Route path="/*" element={<App />} />
-                            </Routes>
+                            <NewFeedContextProvider>
+                                <Routes>
+                                    <Route path="/*" element={<App />} />
+                                </Routes>
+                            </NewFeedContextProvider>
                         </AuthProvider>
                     </Router>
                 </ThemeProvider>

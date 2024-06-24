@@ -626,6 +626,18 @@ body {
 }
 .postContainer .postInteract .postComment .forminputComment {
     width: 100%;
+    display: flex;
+}
+.postContainer .postInteract .postComment .forminputComment button {
+    cursor: pointer;
+    background: rgba(135, 135, 135, 0.3137254902);
+    border: none;
+    border-radius: 20%;
+    color: whitesmoke;
+    padding: 5px 10px;
+}
+.postContainer .postInteract .postComment .forminputComment button:hover {
+    background: rgba(206, 206, 206, 0.314);
 }
 .postContainer .postInteract .postComment .inputComment {
     border: none;
@@ -635,7 +647,7 @@ body {
     font-size: 14px;
     background: transparent;
     color: whitesmoke;
-    border-bottom: 0.5px solid dimgrey;
+    // border-bottom: 0.5px solid dimgrey;
     border-radius: 0px;
 }
 .postContainer .postCommentContainer {
@@ -643,11 +655,14 @@ body {
     height: 330px;
     overflow-x: hidden;
     overflow-y: auto;
+    border-top: 0.5px solid dimgray;
+    border-bottom: 0.5px solid dimgray;
+    // border-radius: 5px;
 }
 .postCommentContainer::-webkit-scrollbar-track {
     /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
     background-color: none;
-    border-radius: 5px;
+    // border-radius: 5px;
 }
 
 .postCommentContainer::-webkit-scrollbar {
@@ -659,7 +674,7 @@ body {
 .postCommentContainer::-webkit-scrollbar-thumb {
     /* background-color: #000000; */
     background-color: #87878750;
-    border-radius: 5px;
+    // border-radius: 5px;
 }
 .postContainer .postCommentContainer .comment {
     background-color: rgb(15, 15, 15);
@@ -685,6 +700,10 @@ body {
     border: none;
     background-color: transparent;
     color: whitesmoke;
+    cursor: pointer;
+}
+.postContainer .postCommentContainer .poster button span:hover {
+    text-decoration: underline;
 }
 .postContainer .postCommentContainer .poster img {
     vertical-align: middle;
