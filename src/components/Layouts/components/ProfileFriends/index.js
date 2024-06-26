@@ -2,65 +2,61 @@ import { useEffect, useState } from 'react';
 import axios from '~/api/axios';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import default_avatar from '~/resource/images/default_avatar.jpg';
 
-function User({ friend, children, key }) {
-    const [users, setUsers] = useState();
+function ProfileFriends({ idUserProfile }) {
+    const [friends, setFriends] = useState();
     // id_User của params
     const { id_User } = useParams();
-    // Lấy User
-    const getUsers = async () => {
+    // Lấy User của Bài viết
+    useEffect(() => {
         let isMounted = true;
         const access_token = localStorage.getItem('rAct_T').slice(0, -14);
 
-        try {
-            const response = await axios.get(
-                `/api/profile/${friend.id_friend + '' === id_User ? friend.id_User : friend.id_friend}`,
-                {
+        const getFriends = async () => {
+            try {
+                const response = await axios.get(`/api/profile/friends/${idUserProfile}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${access_token}`,
                     },
-                },
-            );
-            //
-            isMounted && setUsers(response.data.data.user);
-        } catch (err) {
-            console.error(err);
-        }
-        //
+                });
+                //
+                isMounted && setFriends(response.data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        getFriends();
+
         return () => {
             isMounted = false;
         };
-    };
-    //
-    useEffect(() => {
-        getUsers();
     }, []);
 
     return (
         <>
-            {users?.length ? (
+            {friends?.data.length ? (
                 <>
-                    {users.map((user, i) => (
+                    {friends.data.map((friend, i) => (
                         <>
-                            <div key={user.id} className="poster">
+                            <div key={friend.id} className="poster">
                                 <div className="posterAvatar">
-                                    <Link to={`/profile/${user.id}`}>
+                                    <Link to={`/profile/${friend.friend_id}`}>
                                         <button className="btnPosterAvatar">
-                                            <img src={user.avatar ? user.avatar : default_avatar} alt=""></img>
+                                            <img src={friend.user.avatar} alt=""></img>
                                         </button>
                                     </Link>
                                 </div>
                                 <div className="posterInfo">
-                                    <Link to={`/profile/${user.id}`}>
+                                    <Link to={`/profile/${friend.friend_id}`}>
                                         <button>
-                                            <span className="posterName">{user.name}</span>
+                                            <span className="posterName">{friend.user.name}</span>
                                         </button>
                                     </Link>
-                                    {/* <button>
-                                        <span className="posterTime">{children.acceptDate}</span>
-                                    </button> */}
+                                    <button>
+                                        <span className="posterTime">{friend.acceptDate}</span>
+                                    </button>
                                 </div>
                             </div>
                         </>
@@ -85,4 +81,4 @@ function User({ friend, children, key }) {
     );
 }
 
-export default User;
+export default ProfileFriends;

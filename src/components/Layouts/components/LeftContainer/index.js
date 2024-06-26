@@ -1,12 +1,48 @@
 import { Link } from 'react-router-dom';
 // themeContext
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '~/ThemeContext';
+import { useParams } from 'react-router-dom';
+import axios from '~/api/axios';
 
 function LeftContainer() {
     const theme = useContext(ThemeContext);
     const userName = localStorage.getItem('nHuRsE8raEvatRa').slice(0, -14);
     const userAvatarUrl = localStorage.getItem('jssE9SdeWedeE4S').slice(0, -14);
+    const lcIdUser = localStorage.getItem('rAct_I').slice(0, -14);
+    //
+    const [userInfo, setUserInfo] = useState();
+    //
+    // id_User của params
+    const { id_User } = useParams();
+    // Lấy thông tin user
+    const getUserInfo = async () => {
+        let isMounted = true;
+        const access_token = localStorage.getItem('rAct_T').slice(0, -14);
+
+        try {
+            const response = await axios.get(`/api/profile/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${access_token}`,
+                },
+            });
+            //
+            isMounted && setUserInfo(response.data.data);
+        } catch (err) {
+            console.error(err);
+        }
+        //
+        return () => {
+            isMounted = false;
+        };
+    };
+    //
+
+    useEffect(() => {
+        // gọi hàm lấy thông tin user
+        getUserInfo();
+    }, [id_User]);
 
     return (
         <>
@@ -21,7 +57,7 @@ function LeftContainer() {
                 {/* <!-- Vùng chứa menu --> */}
                 <div className="row menuZone">
                     <div className="col l-12 m-12 c-12 CtnbtnProfile">
-                        <Link to={'/profile'}>
+                        <Link to={`/profile/${lcIdUser}`}>
                             <button
                                 id="btnProfileid"
                                 className={[
@@ -30,8 +66,10 @@ function LeftContainer() {
                                     theme.theme === 'dark' ? 'btnMenuDarkMode' : '',
                                 ].join(' ')}
                             >
-                                <img src={userAvatarUrl}></img>
-                                <span>{userName}</span>
+                                <>
+                                    <img src={userInfo?.user[0].avatar}></img>
+                                    <span>{userInfo?.user[0].name}</span>
+                                </>
                             </button>
                         </Link>
                     </div>

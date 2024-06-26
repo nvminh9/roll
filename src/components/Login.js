@@ -48,6 +48,7 @@ const Login = () => {
             //
             localStorage.setItem('rAct_T', response?.data?.data?.access_token + 'XrXoXlXl092B73');
             localStorage.setItem('rAct_R', response?.data?.data?.user?.role + 'XrXoXlXl092B73');
+            localStorage.setItem('rAct_I', response?.data?.data?.user?.id + 'XrXoXlXl092B73');
             //
             localStorage.setItem('nHuRsE8raEvatRa', response?.data?.data?.user?.name + 'XrXoXlXl092B73');
             localStorage.setItem('jssE9SdeWedeE4S', response?.data?.data?.user?.avatar + 'XrXoXlXl092B73');

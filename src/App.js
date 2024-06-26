@@ -27,7 +27,8 @@ function App() {
                 {/* we want to protect these routes */}
                 <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
                     <Route path="/" element={<NewFeed />} />
-                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/profile/:id_User" element={<Profile />} />
+                    <Route path="/profile/" element={<Profile />} />
                     <Route path="/notification" element={<NotiPage />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/message" element={<Message />} />

@@ -614,6 +614,14 @@ body {
 .postContainer .postInteract .postReact .btnReactContainer .btnComment:hover {
     color: #3ae374;
 }
+.postContainer .postInteract .postReact .btnReactContainer .likeAmount:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.btnLikeActive {
+    color: #ff3838;
+    background-color: rgba(131, 131, 131, 0.438);
+}
 .postContainer .postInteract .postReact .btnReactContainer .btnShare:hover {
     color: #17c0eb;
 }
@@ -686,6 +694,9 @@ body {
     justify-content: left;
     align-items: center;
 }
+.postContainer .postCommentContainer .btnDeleteComment:hover {
+    background-color: black;
+}
 .postContainer .postCommentContainer .comment .commentContent {
     font-size: 14px;
     font-weight: 300;
@@ -722,6 +733,31 @@ body {
     font-size: 14px;
     font-weight: 600;
     color: whitesmoke;
+}
+.newestPersonalPosterComment {
+    -webkit-animation: changeNewestPersonalPosterCommentColor 3s linear infinite;
+    animation: changeNewestPersonalPosterCommentColor 3s linear infinite;
+}
+@-webkit-keyframes changeNewestPersonalPosterCommentColor {
+    0% {
+        color: #243cfc;
+        // display: block;
+    }
+    100% {
+        color: #00ddff;
+        // display: none;
+    }
+}
+
+@keyframes changeNewestPersonalPosterCommentColor {
+    0% {
+        color: #243cfc;
+        // display: block;
+    }
+    100% {
+        color: #00ddff;
+        // display: none;
+    }
 }
 /* ... */
 /* ... */
@@ -1305,6 +1341,36 @@ body {
     font-weight: 600;
     padding: 10px;
     border-bottom: 3px solid transparent;
+}
+.profileFriendList {
+    margin: 10px;
+}
+.profileFriendList .poster {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    background-color: rgb(15, 15, 15);
+    border-radius: 20px;
+    padding: 15px;
+}
+.profileFriendList button {
+    background: none;
+    border: none;
+    width: fit-content;
+    color: whitesmoke;
+}
+.profileFriendList button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.profileFriendList img {
+    vertical-align: middle;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
+    cursor: pointer;
 }
 .profileFeatures .btnProfilePostList:hover,
 .btnProfileFriendList:hover {

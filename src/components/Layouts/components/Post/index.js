@@ -2,21 +2,28 @@ import { useEffect, useState } from 'react';
 import axios from '~/api/axios';
 import User from '../User';
 import PostComment from '../PostComment';
+import PostLike from '../PostLike';
 import { Link } from 'react-router-dom';
+import default_avatar from '~/resource/images/default_avatar.jpg';
 
 function Post({ key, children }) {
     const [isOpenComment, setIsOpenComment] = useState(false);
+    const [isOpenLike, setIsOpenLike] = useState(false);
     const [postCommentContent, setPostCommentContent] = useState();
     // Hàm mở hộp hiện Comments
     const openComment = () => {
-        // let postComment = document.getElementById(`postComment${children.id}`);
-
         if (isOpenComment === false) {
-            // postComment.style.display = 'block';
             setIsOpenComment(true);
         } else {
-            // postComment.style.display = 'none';
             setIsOpenComment(false);
+        }
+    };
+    // Hàm mở hộp hiện Likes
+    const openLike = () => {
+        if (isOpenLike === false) {
+            setIsOpenLike(true);
+        } else {
+            setIsOpenLike(false);
         }
     };
     // Hàm post Comment và thêm ngay dưới bài viết
@@ -40,27 +47,31 @@ function Post({ key, children }) {
             console.log('Response :', response);
             //
             let cmtTemp = `<div class="comment">
-                            <div class="poster">
-                                <div class="posterAvatar">
-                                    <button class="btnPosterAvatar">
-                                        <img src=${userAvatarUrl} alt=""></img>
-                                    </button>
+                                <div class="poster">
+                                    <div class="posterAvatar">
+                                        <button class="btnPosterAvatar">
+                                            <img src=${userAvatarUrl} alt=""></img>
+                                        </button>
+                                    </div>
+                                    <div class="posterInfo">
+                                        <button>
+                                            <span class="posterName">${userName}</span>
+                                        </button>
+                                        <button>
+                                            <span class="posterTime newestPersonalPosterComment" style="text-decoration:none;">Bình luận mới nhất của bạn</span>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="posterInfo">
-                                    <button>
-                                        <span class="posterName">${userName}</span>
-                                    </button>
-                                    <button>
-                                        <span class="posterTime">${timeAgo(response.data.data.created_at)}</span>
-                                    </button>
+                                <div class="commentContent">
+                                    <span style="color: whitesmoke;">${response.data.data.content}</span>
                                 </div>
                             </div>
-                            <div class="commentContent">
-                                <span style="color: whitesmoke;">${response.data.data.content}</span>
-                            </div>
-                        </div>`;
+                        `;
 
-            // document.getElementById(`myPostComment${children.id}`).innerHTML = cmtTemp;
+            document.getElementById(`myPostComment${children.id}`).innerHTML = cmtTemp;
+            let commentNewCount = document.getElementById(`post_comment_count_${children.id}`).getHTML() - 0 + 1;
+            document.getElementById(`post_comment_count_${children.id}`).innerHTML = commentNewCount;
+            openComment();
         } catch (err) {
             console.log(err);
         }
@@ -68,6 +79,55 @@ function Post({ key, children }) {
         //
         setPostCommentContent('');
     };
+    // Hàm like bài viết
+    const likeOrCancelLikePost = async (e) => {
+        e.preventDefault();
+        const access_token = localStorage.getItem('rAct_T').slice(0, -14);
+        //
+        try {
+            const response = await axios.get(`/api/like/${children.id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${access_token}`,
+                },
+            });
+            //
+            if (response?.data?.message === 'Đã like thành công') {
+                document.getElementById(`btnLike_post_${children.id}`).style =
+                    'color: #ff3838; background-color: rgba(131, 131, 131, 0.438);';
+                document.getElementById(`btnLike_post_${children.id}`).classList.add('youLiked'); // thêm nhưng ch làm gì :)
+            } else {
+                document.getElementById(`btnLike_post_${children.id}`).style = '';
+                document.getElementById(`btnLike_post_${children.id}`).classList.remove('youLiked'); // thêm nhưng ch làm gì :)
+            }
+            document.getElementById(`likeAmount_post_${children.id}`).innerText = response?.data?.data?.likes;
+            //
+            console.log('Response :', response);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    // // Hàm xóa Comment
+    // const deleteComment = async (e) => {
+    //     e.preventDefault();
+    //     const access_token = localStorage.getItem('rAct_T').slice(0, -14);
+    //     //
+    //     try {
+    //         const response = await axios.delete(`/api/comment/`, {
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 Authorization: `Bearer ${access_token}`,
+    //             },
+    //         });
+    //         //
+    //         console.log('Response :', response);
+    //         //
+    //         openComment();
+    //         openComment();
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
     // Hàm tính thời gian
     function timeAgo(date) {
         date = new Date(date + '');
@@ -119,6 +179,14 @@ function Post({ key, children }) {
     }
     //
     useEffect(() => {
+        const lcIdUser = localStorage.getItem('rAct_I').slice(0, -14) - 0;
+        // Khi Render Post nếu mình đã like thì nút like có màu đỏ
+        children.likes.map((like) => {
+            if (like.id_User === lcIdUser) {
+                document.getElementById(`btnLike_post_${children.id}`).style =
+                    'color: #ff3838; background-color: rgba(131, 131, 131, 0.438);';
+            }
+        });
         // --------------------*** BUTTON MOVE SLIDE POST IMAGES ***---------------------
         // tất cả các slide hình của các bài viết đã được load...
         const postImages = document.getElementsByClassName('postImages');
@@ -146,20 +214,22 @@ function Post({ key, children }) {
                     <div className="col l-12 m-12 c-12 postBack postHeader">
                         <div id={`poster_${children.id_User}`} key={children.id_User} className="poster">
                             <div className="posterAvatar">
-                                <Link to="/profile">
+                                <Link to={`/profile/${children.id_User}`}>
                                     <button className="btnPosterAvatar">
-                                        <img src={children.user.avatar} alt=""></img>
+                                        <img
+                                            src={children.user.avatar ? children.user.avatar : default_avatar}
+                                            alt=""
+                                        ></img>
                                     </button>
                                 </Link>
                             </div>
                             <div className="posterInfo">
-                                <Link to="/profile">
+                                <Link to={`/profile/${children.id_User}`}>
                                     <button>
                                         <span className="posterName">{children.user.name}</span>
                                     </button>
                                 </Link>
-                                {/*
-                                 */}
+                                {/**/}
                                 {/* '2024-06-24T13:16:26.000000Z'.split('T')[1].split('.')[0].split(':').join("") */}
                                 <button>
                                     <span className="posterTime">{timeAgo(children.created_at)}</span>
@@ -227,16 +297,39 @@ function Post({ key, children }) {
                     <div className="col l-12 m-12 c-12 postBack postInteract">
                         <div className="postReact">
                             <div className="btnReactContainer btnLikeContainer">
-                                <button key={children.id} className="btnReact btnLike">
+                                <button
+                                    id={`btnLike_post_${children.id}`}
+                                    key={children.id}
+                                    className="btnReact btnLike"
+                                    onClick={likeOrCancelLikePost}
+                                >
                                     <i className="fa-regular fa-heart"></i>
                                 </button>
-                                <span style={{ color: 'white' }}>{children.likes.length}</span>
+                                <span
+                                    id={`likeAmount_post_${children.id}`}
+                                    className="likeAmount"
+                                    style={{ color: 'white' }}
+                                    onClick={openLike}
+                                >
+                                    {children.likes.length}
+                                </span>
                             </div>
                             <div className="btnReactContainer btnCommentContainer">
-                                <button key={children.id} className="btnReact btnComment" onClick={openComment}>
+                                <button
+                                    id={`post_btnComment_${children.id}`}
+                                    key={children.id}
+                                    className="btnReact btnComment"
+                                    onClick={openComment}
+                                >
                                     <i className="fa-regular fa-comment"></i>
                                 </button>
-                                <span style={{ color: 'white' }}>{children.comments.length}</span>
+                                <span
+                                    className="commentAmout"
+                                    id={`post_comment_count_${children.id}`}
+                                    style={{ color: 'white' }}
+                                >
+                                    {children.comments.length}
+                                </span>
                             </div>
                         </div>
                         <div className="postComment">
@@ -261,29 +354,16 @@ function Post({ key, children }) {
                         className="col l-12 m-12 c-12 postCommentContainer"
                         style={{ height: 'fit-content', border: 'none' }}
                     >
-                        {/* <div className="comment">
-                            <div key={children.id_User} className="poster">
-                                <div className="posterAvatar">
-                                    <button className="btnPosterAvatar">
-                                        <img src="http://127.0.0.1:8000/uploads/image/667840541e743.png" alt=""></img>
-                                    </button>
-                                </div>
-                                <div className="posterInfo">
-                                    <button>
-                                        <span className="posterName">minhcorn</span>
-                                    </button>
-                                    <button>
-                                        <span className="posterTime">12313</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="commentContent">
-                                <span style={{ color: 'whitesmoke' }}>Hello bro</span>
-                            </div>
-                        </div> */}
+                        {/* Comment popup */}
                     </div>
                     {/* Comments */}
-                    <PostComment isOpenComment={isOpenComment}>{children}</PostComment>
+                    <PostComment openComment={openComment} isOpenComment={isOpenComment} isOpenLike={isOpenLike}>
+                        {children}
+                    </PostComment>
+                    {/* Likes */}
+                    <PostLike isOpenComment={isOpenComment} isOpenLike={isOpenLike}>
+                        {children}
+                    </PostLike>
                 </div>
             </div>
         </>
