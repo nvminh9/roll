@@ -14,7 +14,7 @@ import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icon
 import axios from '~/api/axios';
 import ButtonFriendShipInProfile from '~/components/Layouts/components/ButtonFriendShipInProfile';
 
-function Profile({}) {
+function MyProfile({}) {
     const theme = useContext(ThemeContext);
     const [userInfo, setUserInfo] = useState();
     const [isOpenProfilePost, setIsOpenProfilePost] = useState(true);
@@ -369,163 +369,6 @@ function Profile({}) {
     const openFormUpStory = (e) => {
         setIsOpenUpStory(true);
     };
-    // Hàm handle nút Kết bạn / Hủy kết bạn
-    const handleAddFriendOrDeleteFriend = async (e) => {
-        e.preventDefault();
-        //
-        let isMounted = true;
-        const access_token = localStorage.getItem('rAct_T').slice(0, -14);
-        //
-        let textOfButton = document.getElementById(`${id_User}`).getHTML();
-        //
-        if (textOfButton === 'Kết bạn') {
-            // // thực hiện gọi api add friend
-            try {
-                const response = await axios.post(`/api/friend/${e.target.id}`, JSON.stringify({ status: 'pending' }), {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${access_token}`,
-                    },
-                });
-                //
-                // isMounted && setUserInfo(response?.data);
-                //
-                console.log('Response :', response);
-                //
-            } catch (err) {
-                console.log(err);
-            }
-            //
-            document.getElementById(`${id_User}`).innerText = 'Đã gửi lời mời kết bạn';
-            //
-            console.log('Kết bạn');
-            // console.log(textOfButton);
-            // console.log(id_User);
-            // checkMyFriendRequest();
-        } else if (textOfButton === 'Hủy kết bạn') {
-            console.log(e.target.id);
-            // // thực hiện gọi api hủy lời mời mình gửi kết bạn
-            try {
-                const response = await axios.delete(`/api/friend/${e.target.id}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${access_token}`,
-                    },
-                });
-                //
-                // isMounted && setUserInfo(response?.data);
-                //
-                console.log('Response :', response);
-                //
-            } catch (err) {
-                console.log(err);
-            }
-
-            document.getElementById(`${id_User}`).innerText = 'Kết bạn';
-            //
-            console.log('Đã hủy lời mời kết bạn');
-            // console.log(textOfButton);
-            // console.log(id_User);
-        } else if (textOfButton === 'Đã gửi lời mời kết bạn') {
-            try {
-                const response = await axios.delete(`/api/unfriendrequest/${e.target.id}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${access_token}`,
-                    },
-                });
-                //
-                // isMounted && setUserInfo(response?.data);
-                //
-                console.log('Response :', response);
-                //
-            } catch (err) {
-                console.log(err);
-            }
-            // thay đổi lại nút và hiện thông báo
-            document.getElementById(`${id_User}`).innerText = 'Kết bạn';
-            // document.getElementById(`${id_User}`).style = 'color: black; border: .5px solid black;';
-            //
-            console.log('Đã hủy lời mời kết bạn mình gửi');
-            // checkMyFriendRequest();
-            // console.log(textOfButton);
-            // console.log(id_User);
-        } else if (textOfButton === 'Xác nhận lời mời kết bạn') {
-            console.log(access_token);
-            try {
-                const response = await axios.put(`/api/friend/${e.target.id}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${access_token}`,
-                    },
-                });
-                //
-                console.log('Response :', response);
-                //
-            } catch (err) {
-                console.log(err);
-            }
-            // thay đổi lại nút và hiện thông báo
-            document.getElementById(`${id_User}`).innerText = 'Hủy kết bạn';
-            // document.getElementById(`${id_User}`).style = 'color: black; border: .5px solid black;';
-            //
-            console.log('Đã xác nhận lời mời kết bạn thành công');
-        }
-        return () => {
-            isMounted = false;
-        };
-    };
-    //
-    // hàm check trong ds lời mời kb do mình gửi đi
-    const checkMyFriendRequest = async (e) => {
-        let isMounted = true;
-        // e.preventDefault();
-        const access_token = localStorage.getItem('rAct_T').slice(0, -14);
-        //
-        try {
-            const response = await axios.get(`/api/friendRequest/${id_User}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${access_token}`,
-                },
-            });
-            //
-            isMounted && setMyListRequestFriend(response?.data);
-            //
-            console.log('Response :', response);
-            //
-        } catch (err) {
-            console.log(err);
-        }
-        return () => {
-            isMounted = false;
-        };
-    };
-    // hàm check trong ds lời mời kb do người khác gửi mình
-    const checkUsFriendRequest = async (e) => {
-        let isMounted = true;
-        // e.preventDefault();
-        const access_token = localStorage.getItem('rAct_T').slice(0, -14);
-        //
-        try {
-            const response = await axios.get(`/api/RequestFriend/${id_User}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${access_token}`,
-                },
-            });
-            //
-            isMounted && setUsListRequestFriend(response?.data);
-            //
-            console.log('Response :', response);
-            //
-        } catch (err) {
-            console.log(err);
-        }
-        return () => {
-            isMounted = false;
-        };
-    };
     // Hàm tính thời gian
     function timeAgo(date) {
         date = new Date(date + '');
@@ -597,15 +440,19 @@ function Profile({}) {
     useEffect(() => {
         //
         // Khi Render Post nếu mình đã like thì nút like có màu đỏ (Xử lý trong useEffect của component Post)
-        //
-        checkMyFriendRequest();
-        checkUsFriendRequest();
+        // console.log('userInfo callbacl', userInfo);
         // Gọi hàm lấy thông tin user để load ra giao diện profile
-        getUserInfo();
+        getMyUserInfo();
         //
     }, [id_User, isOpenProfilePost, isOpenProfileFriends, profileAvatar]);
     // isOpenProfilePost từng ở depency ở trên
-
+    useEffect(() => {
+        // document.getElementById('headerTitleID').innerText = 'Trang cá nhân';
+        document.title = `${userInfo?.data?.user[0]?.name ? userInfo?.data?.user[0]?.name : 'Roll'}`;
+        document.getElementById('headerTitleID').innerText = `${
+            userInfo?.data?.user[0]?.name ? userInfo?.data?.user[0]?.name : 'Trang cá nhân'
+        }`;
+    }, [id_User]);
     // cho update profile
     useEffect(() => {
         setValidName(isValid(profileName));
@@ -740,19 +587,7 @@ function Profile({}) {
                                 Chỉnh sửa trang cá nhân
                             </button>
                         ) : (
-                            <button
-                                id={`${id_User}`}
-                                className="btnEditProfile"
-                                onClick={handleAddFriendOrDeleteFriend}
-                            >
-                                Kết bạn
-                                <ButtonFriendShipInProfile
-                                    usListRequestFriend={usListRequestFriend}
-                                    myListRequestFriend={myListRequestFriend}
-                                >
-                                    {userInfo}
-                                </ButtonFriendShipInProfile>
-                            </button>
+                            <></>
                         )}
                     </div>
                 </div>
@@ -799,56 +634,49 @@ function Profile({}) {
                         Danh sách bạn bè
                     </button>
                     {/* Đăng bài */}
-                    {id_User === lcIdUser ? (
-                        <button
-                            id="btnProfileUpPost"
-                            onClick={openFormUpPost}
-                            className={[
-                                'btnProfileFeatures',
-                                'btnProfileFriendList',
-                                theme.theme === 'dark' ? 'textDarkMode' : '',
-                            ].join(' ')}
-                            style={{
-                                position: 'absolute',
-                                right: '140px',
-                                bottom: '5px',
-                                background: 'black',
-                                color: 'whitesmoke',
-                                border: '.5px solid whitesmoke',
-                                borderRadius: '20px',
-                            }}
-                        >
-                            Đăng bài +
-                        </button>
-                    ) : (
-                        <></>
-                    )}
+                    <button
+                        id="btnProfileUpPost"
+                        onClick={openFormUpPost}
+                        className={[
+                            'btnProfileFeatures',
+                            'btnProfileFriendList',
+                            theme.theme === 'dark' ? 'textDarkMode' : '',
+                        ].join(' ')}
+                        style={{
+                            position: 'absolute',
+                            right: '140px',
+                            bottom: '5px',
+                            background: 'black',
+                            color: 'whitesmoke',
+                            border: '.5px solid whitesmoke',
+                            borderRadius: '20px',
+                        }}
+                    >
+                        Đăng bài +
+                    </button>
+
                     {/* Đăng story */}
-                    {id_User === lcIdUser ? (
-                        <button
-                            id="btnProfileUpStory"
-                            onClick={openFormUpStory}
-                            className={[
-                                'btnProfileFeatures',
-                                'btnProfileFriendList',
-                                theme.theme === 'dark' ? 'textDarkMode' : '',
-                            ].join(' ')}
-                            style={{
-                                position: 'absolute',
-                                right: '5px',
-                                bottom: '5px',
-                                background: 'black',
-                                color: 'whitesmoke',
-                                border: '.5px solid whitesmoke',
-                                borderRadius: '20px',
-                            }}
-                        >
-                            Đăng Story{' '}
-                            <i className="fa-solid fa-star-of-life" aria-hidden="true" style={{ color: '#243cfc' }}></i>
-                        </button>
-                    ) : (
-                        <></>
-                    )}
+                    <button
+                        id="btnProfileUpStory"
+                        onClick={openFormUpStory}
+                        className={[
+                            'btnProfileFeatures',
+                            'btnProfileFriendList',
+                            theme.theme === 'dark' ? 'textDarkMode' : '',
+                        ].join(' ')}
+                        style={{
+                            position: 'absolute',
+                            right: '5px',
+                            bottom: '5px',
+                            background: 'black',
+                            color: 'whitesmoke',
+                            border: '.5px solid whitesmoke',
+                            borderRadius: '20px',
+                        }}
+                    >
+                        Đăng Story{' '}
+                        <i className="fa-solid fa-star-of-life" aria-hidden="true" style={{ color: '#243cfc' }}></i>
+                    </button>
                 </div>
                 <div id={`profileContent_ID`} className="col l-12 m-12 c-12 profileContent">
                     {isOpenProfilePost ? (
@@ -1402,4 +1230,4 @@ function Profile({}) {
     );
 }
 
-export default Profile;
+export default MyProfile;

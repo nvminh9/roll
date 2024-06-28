@@ -1,10 +1,22 @@
 import { Fragment, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { DefaultLayout } from '~/components/Layouts';
-import { Admin, Message, Missing, NewFeed, NotiPage, Profile, Search, SettingPage, Unauthorized } from '~/pages';
+import {
+    Admin,
+    Message,
+    Missing,
+    NewFeed,
+    NotiPage,
+    Profile,
+    Search,
+    SettingPage,
+    Unauthorized,
+    MyProfile,
+} from '~/pages';
 import Login from './components/Login';
 import Register from './components/Register';
 import RequireAuth from './components/RequireAuth';
+import BoxMessage from './components/Layouts/components/BoxMessage';
 
 const ROLES = {
     Admin: '5150',
@@ -27,11 +39,12 @@ function App() {
                 {/* we want to protect these routes */}
                 <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
                     <Route path="/" element={<NewFeed />} />
+                    <Route path="/profile/" element={<MyProfile />} />
                     <Route path="/profile/:id_User" element={<Profile />} />
-                    <Route path="/profile/" element={<Profile />} />
                     <Route path="/notification" element={<NotiPage />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/message" element={<Message />} />
+                    <Route path="/message/:id_User" element={<BoxMessage />} />
                     <Route path="/setting" element={<SettingPage />} />
                 </Route>
                 {/*  */}

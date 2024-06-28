@@ -14,22 +14,22 @@ const DefaultLayout = () => {
         let middleCtn = document.getElementById('middleContainerID');
         let rightCtn = document.getElementById('rightContainerID');
         var prevScrollpos = middleCtn.scrollTop;
-        middleCtn.onscroll = function () {
-            var currentScrollPos = middleCtn.scrollTop;
-            if (prevScrollpos > currentScrollPos) {
-                document.getElementById('headerContainerID').style.top = '0';
-                document.getElementById('leftContainerID').style.top = '0';
-                document.getElementById('rightContainerID').style.top = '0';
-                window.scrollTo(0, 0);
-                prevScrollpos = currentScrollPos;
-            } else if (currentScrollPos > prevScrollpos + 60) {
-                document.getElementById('headerContainerID').style.top = '-70px';
-                document.getElementById('leftContainerID').style.top = '-70px';
-                document.getElementById('rightContainerID').style.top = '-60px';
-                window.scrollTo(0, 1);
-                prevScrollpos = currentScrollPos;
-            }
-        };
+        // middleCtn.onscroll = function () {
+        //     var currentScrollPos = middleCtn.scrollTop;
+        //     if (prevScrollpos > currentScrollPos) {
+        //         document.getElementById('headerContainerID').style.top = '0';
+        //         document.getElementById('leftContainerID').style.top = '0';
+        //         document.getElementById('rightContainerID').style.top = '0';
+        //         window.scrollTo(0, 0);
+        //         prevScrollpos = currentScrollPos;
+        //     } else if (currentScrollPos > prevScrollpos + 60) {
+        //         document.getElementById('headerContainerID').style.top = '-70px';
+        //         document.getElementById('leftContainerID').style.top = '-70px';
+        //         document.getElementById('rightContainerID').style.top = '-60px';
+        //         window.scrollTo(0, 1);
+        //         prevScrollpos = currentScrollPos;
+        //     }
+        // };
         //
         // menu mở rộng trên Điện thoại
         var checkExpandMenu = false;
@@ -88,12 +88,14 @@ const DefaultLayout = () => {
             }
         });
         // ------------------------------------------------------------------------------------------
-    }, []);
+    });
+    //
+    //
 
     return (
         <>
             <Header></Header>
-            <div className="row container">
+            <div className="row container" style={{ margin: '0px' }}>
                 <LeftContainer></LeftContainer>
                 <MiddleContainer>
                     <Outlet />

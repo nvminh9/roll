@@ -40,20 +40,23 @@ const NewFeed = () => {
     };
     //
     useEffect(() => {
+        document.title = 'Bảng tin / Roll';
         // Đặt tiêu đề của Header
         document.getElementById('headerTitleID').innerText = 'Bảng tin';
         // Gọi hàm lấy bài viết
         getPosts();
         //
     }, []);
-
+    //
     return (
         <>
             {posts?.data.length ? (
                 <>
-                    {posts.data.map((post) => (
-                        <Post key={post.id}>{post}</Post>
-                    ))}
+                    {posts.data
+                        .sort(() => Math.random() - 0.5)
+                        .map((post) => (
+                            <Post key={post.id}>{post}</Post>
+                        ))}
                 </>
             ) : (
                 <>

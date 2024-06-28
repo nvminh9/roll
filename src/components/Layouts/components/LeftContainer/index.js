@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '~/ThemeContext';
 import { useParams } from 'react-router-dom';
 import axios from '~/api/axios';
+import default_avatar from '~/resource/images/default_avatar.jpg';
 
 function LeftContainer() {
     const theme = useContext(ThemeContext);
@@ -57,7 +58,7 @@ function LeftContainer() {
                 {/* <!-- Vùng chứa menu --> */}
                 <div className="row menuZone">
                     <div className="col l-12 m-12 c-12 CtnbtnProfile">
-                        <Link to={`/profile/${lcIdUser}`}>
+                        <Link to={`/profile/`}>
                             <button
                                 id="btnProfileid"
                                 className={[
@@ -67,7 +68,9 @@ function LeftContainer() {
                                 ].join(' ')}
                             >
                                 <>
-                                    <img src={userInfo?.user[0].avatar}></img>
+                                    <img
+                                        src={userInfo?.user[0].avatar ? userInfo?.user[0].avatar : default_avatar}
+                                    ></img>
                                     <span>{userInfo?.user[0].name}</span>
                                 </>
                             </button>

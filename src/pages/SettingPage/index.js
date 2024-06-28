@@ -11,6 +11,8 @@ function SettingPage() {
     const { auth, setAuth } = useAuth();
 
     useEffect(() => {
+        document.title = 'Cài đặt / Roll';
+        //
         document.getElementById('headerTitleID').innerText = 'Cài đặt';
     }, []);
 

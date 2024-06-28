@@ -423,7 +423,21 @@ body {
     object-fit: cover;
     border: 0.2px solid dimgrey;
 }
-
+.poster .posterAvatar img:hover {
+    cursor: pointer;
+}
+.poster .posterAvatar img:hover {
+    cursor: pointer;
+}
+.searchResult_everyone .poster {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.searchResult_everyone .poster:hover {
+    background: dimgray;
+    cursor: pointer;
+}
 .postContainer .postHeader .poster .posterInfo {
     height: 100%;
     width: fit-content;
@@ -443,6 +457,11 @@ body {
 }
 .postContainer .postHeader .poster .posterInfo .posterName:hover {
     text-decoration: underline;
+    cursor: pointer;
+}
+.posterName:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 .postContainer .postHeader .poster .posterInfo .posterTime {
     font-size: 10px;
@@ -762,6 +781,55 @@ body {
 /* ... */
 /* ... */
 /* Hết CSS bài đăng */
+/* ***--------------- Nhắn Tin ---------------*** */
+.listBoxMessage .posterInMessage {
+}
+.listBoxMessage .posterInMessage:hover {
+    // background-color: #d9d9d9;
+    background-color: #4545453a;
+    cursor: pointer;
+}
+.posterInMessage:hover {
+    // background-color: #d9d9d9;
+    background-color: #4545453a;
+    cursor: pointer;
+}
+.backGroundBoxMessage {
+    background-image: url('../../resource/images/background_auth.avif');
+    // background-image: url('https://cdn.vectorstock.com/i/preview-1x/34/27/blue-abstract-gradient-background-vector-38663427.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 30px;
+}
+.searchInMessage {
+}
+.searchInMessage::-webkit-scrollbar-track {
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+    background-color: none;
+    border-radius: 5px;
+}
+
+.searchInMessage::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    border-radius: 5px;
+    background-color: none;
+}
+
+.searchInMessage::-webkit-scrollbar-thumb {
+    /* background-color: #000000; */
+    background-color: #87878750;
+    border-radius: 20px;
+}
+.posterInListMessage {
+}
+.btnToBoxMessage {
+}
+.btnToBoxMessage:hover {
+    cursor: pointer;
+}
+/* --------------- Hết nhắn tin ----------------- */
 
 /* ----------- Hết CSS Khung ở giữa (middleContainer) --------- */
 

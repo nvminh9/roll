@@ -7,3 +7,4 @@ export { default as Profile } from './Profile';
 export { default as Search } from './Search';
 export { default as SettingPage } from './SettingPage';
 export { default as Unauthorized } from './Unauthorized';
+export { default as MyProfile } from './MyProfile';

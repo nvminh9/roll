@@ -3,13 +3,18 @@ import axios from '~/api/axios';
 import User from '../User';
 import PostComment from '../PostComment';
 import PostLike from '../PostLike';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import default_avatar from '~/resource/images/default_avatar.jpg';
 
 function Post({ key, children }) {
     const [isOpenComment, setIsOpenComment] = useState(false);
     const [isOpenLike, setIsOpenLike] = useState(false);
     const [postCommentContent, setPostCommentContent] = useState();
+    //
+    // id_User của params của Route truyền vào
+
+    //
+    const lcIdUser = localStorage.getItem('rAct_I').slice(0, -14) - 0;
     // Hàm mở hộp hiện Comments
     const openComment = () => {
         if (isOpenComment === false) {
@@ -108,26 +113,7 @@ function Post({ key, children }) {
         }
     };
     // // Hàm xóa Comment
-    // const deleteComment = async (e) => {
-    //     e.preventDefault();
-    //     const access_token = localStorage.getItem('rAct_T').slice(0, -14);
-    //     //
-    //     try {
-    //         const response = await axios.delete(`/api/comment/`, {
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 Authorization: `Bearer ${access_token}`,
-    //             },
-    //         });
-    //         //
-    //         console.log('Response :', response);
-    //         //
-    //         openComment();
-    //         openComment();
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // };
+    // ...
     // Hàm tính thời gian
     function timeAgo(date) {
         date = new Date(date + '');
@@ -187,24 +173,89 @@ function Post({ key, children }) {
                     'color: #ff3838; background-color: rgba(131, 131, 131, 0.438);';
             }
         });
-        // --------------------*** BUTTON MOVE SLIDE POST IMAGES ***---------------------
-        // tất cả các slide hình của các bài viết đã được load...
-        const postImages = document.getElementsByClassName('postImages');
-        // nút di chuyển slide hình qua trái
-        const btnLeftPostImages = document.getElementsByClassName('btnLeftPostImages');
-        // nút di chuyển slide hình qua phải
-        const btnRightPostImages = document.getElementsByClassName('btnRightPostImages');
-        //
-        for (let i = 0; i < postImages.length; i++) {
-            btnLeftPostImages[i].addEventListener('click', function (e) {
-                postImages[i].scrollLeft = postImages[i].scrollLeft - 350;
-            });
-            btnRightPostImages[i].addEventListener('click', function (e) {
-                postImages[i].scrollLeft = postImages[i].scrollLeft + 350;
-            });
-        }
-        // ------------------------------------------------------------------------------
     }, []);
+    //
+    // // --------------------*** BUTTON MOVE SLIDE POST IMAGES ***---------------------
+    // // tất cả các slide hình của các bài viết đã được load...
+    // const postImages = document.getElementsByClassName('postImages');
+    // // nút di chuyển slide hình qua trái
+    // const btnLeftPostImages = document.getElementsByClassName('btnLeftPostImages');
+    // // nút di chuyển slide hình qua phải
+    // const btnRightPostImages = document.getElementsByClassName('btnRightPostImages');
+    // //
+    // for (let i = 0; i < postImages.length; i++) {
+    //     btnLeftPostImages[i].addEventListener('click', function (e) {
+    //         postImages[i].scrollLeft = postImages[i].scrollLeft - 350;
+    //     });
+    //     btnRightPostImages[i].addEventListener('click', function (e) {
+    //         postImages[i].scrollLeft = postImages[i].scrollLeft + 350;
+    //     });
+    // }
+    // // ------------------------------------------------------------------------------
+    // // -------------------------*** ACTIVE IMAGE ***--------------------------
+    // // list các hình của tất cả các bài viết
+    // var postImage = document.getElementsByClassName('postImage');
+    // // khung imageActiveContainer
+    // const imageActiveContainer = document.getElementById('imageActiveContainerID');
+    // // template imageActive
+    // var imageActive = '';
+
+    // for (let i = 0; i < postImage.length; i++) {
+    //     postImage[i].addEventListener('click', function (e) {
+    //         // imageActiveSrc lưu index hiện tại của hình khi được chọn.
+    //         let imageActiveSrc = i;
+    //         imageActiveContainer.style = `height: 100%;width: 100%;padding: 0;position: absolute;z-index:1;background: linear-gradient(0deg, rgba(0, 0, 0, 0.56) 0%, rgba(0, 0, 0, 0.54) 100%);-webkit-backdrop-filter: blur(20px);backdrop-filter: blur(8px);`;
+    //         imageActive =
+    //             `<div id="imageActiveID" class="imageActive">
+    //     <button id="btnLeftImageActiveID" class="col l-1 m-2 c-2 btnLeftImageActive">
+    //     <i class="fa-solid fa-circle-chevron-left"></i>
+    //     </button>
+    //     <div id="imageActiveContentID" class="col l-10 m-8 c-8 imageActiveContent">
+    //         <img class="imageActiveContentSize" src="` +
+    //             postImage[imageActiveSrc].src +
+    //             `" alt="">
+    //     </div>
+    //     <button id="btnRightImageActiveID" class="col l-1 m-2 c-2 btnRightImageActive">
+    //         <i class="fa-solid fa-circle-chevron-right"></i>
+    //     </button>
+    // </div>`;
+    //         imageActiveContainer.innerHTML = imageActive;
+    //         // khung chứa hình
+    //         var imageActiveContent = document.getElementById('imageActiveContentID');
+    //         imageActiveContent.addEventListener('click', function (e) {
+    //             imageActiveContainer.style = '';
+    //             imageActiveContainer.innerHTML = '';
+    //         });
+    //         // nút lùi về hình bên trái
+    //         document.getElementById('btnLeftImageActiveID').addEventListener('click', function (e) {
+    //             // console.log('index trước đó: ', imageActiveSrc);
+    //             // sau khi nhấn nút lùi cập nhật index (imageActiveSrc) giảm đi 1, và show hình với index đó
+    //             if (imageActiveSrc != 0) {
+    //                 imageActiveSrc = imageActiveSrc - 1;
+    //                 imageActiveContent.innerHTML =
+    //                     `<img class="imageActiveContentSize" src="` + postImage[imageActiveSrc].src + `" alt="">`;
+    //             } else {
+    //                 imageActiveSrc = imageActiveSrc;
+    //                 // alert("Hết rồi :v");
+    //             }
+    //         });
+    //         // nút tiến tới hình bên phải
+    //         document.getElementById('btnRightImageActiveID').addEventListener('click', function (e) {
+    //             // console.log('index trước đó: ', imageActiveSrc);
+    //             // sau khi nhấn nút tăng cập nhật index (imageActiveSrc) tăng lên 1, và show hình với index đó
+    //             if (imageActiveSrc < postImage.length - 1) {
+    //                 imageActiveSrc = imageActiveSrc + 1;
+    //                 imageActiveContent.innerHTML =
+    //                     `<img class="imageActiveContentSize" src="` + postImage[imageActiveSrc].src + `" alt="">`;
+    //             } else {
+    //                 imageActiveSrc = imageActiveSrc;
+    //                 // alert("Hết rồi :v");
+    //             }
+    //         });
+    //     });
+    // }
+    // // -----------------------------------------------------------------
+    //
 
     return (
         <>
@@ -214,7 +265,7 @@ function Post({ key, children }) {
                     <div className="col l-12 m-12 c-12 postBack postHeader">
                         <div id={`poster_${children.id_User}`} key={children.id_User} className="poster">
                             <div className="posterAvatar">
-                                <Link to={`/profile/${children.id_User}`}>
+                                <Link to={`/profile/${children.id_User === lcIdUser ? '' : children.id_User}`}>
                                     <button className="btnPosterAvatar">
                                         <img
                                             src={children.user.avatar ? children.user.avatar : default_avatar}
@@ -224,7 +275,7 @@ function Post({ key, children }) {
                                 </Link>
                             </div>
                             <div className="posterInfo">
-                                <Link to={`/profile/${children.id_User}`}>
+                                <Link to={`/profile/${children.id_User === lcIdUser ? '' : children.id_User}`}>
                                     <button>
                                         <span className="posterName">{children.user.name}</span>
                                     </button>
@@ -269,7 +320,7 @@ function Post({ key, children }) {
                                 <>
                                     <div key={video.id} className="postImageContainer">
                                         <video
-                                            className="postImage"
+                                            className="postVideo"
                                             src={video.videoUrl}
                                             alt=""
                                             controls

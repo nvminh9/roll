@@ -14,7 +14,7 @@ function ProfileFriends({ idUserProfile }) {
 
         const getFriends = async () => {
             try {
-                const response = await axios.get(`/api/profile/friends/${idUserProfile}`, {
+                const response = await axios.get(`/api/friend`, {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${access_token}`,
@@ -42,20 +42,20 @@ function ProfileFriends({ idUserProfile }) {
                         <>
                             <div key={friend.id} className="poster">
                                 <div className="posterAvatar">
-                                    <Link to={`/profile/${friend.friend_id}`}>
+                                    <Link to={`/profile/${friend.id}`}>
                                         <button className="btnPosterAvatar">
-                                            <img src={friend.user.avatar} alt=""></img>
+                                            <img src={friend.avatar} alt=""></img>
                                         </button>
                                     </Link>
                                 </div>
                                 <div className="posterInfo">
-                                    <Link to={`/profile/${friend.friend_id}`}>
+                                    <Link to={`/profile/${friend.id}`}>
                                         <button>
-                                            <span className="posterName">{friend.user.name}</span>
+                                            <span className="posterName">{friend.name}</span>
                                         </button>
                                     </Link>
                                     <button>
-                                        <span className="posterTime">{friend.acceptDate}</span>
+                                        <span className="posterTime">{friend.updated_at}</span>
                                     </button>
                                 </div>
                             </div>

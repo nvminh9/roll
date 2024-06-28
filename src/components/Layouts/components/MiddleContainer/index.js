@@ -1,6 +1,8 @@
 import HeaderBack from '../HeaderBack';
 
 function MiddleContainer({ children }) {
+    //
+
     return (
         <>
             {/* <!-- Phần khung bên ở giữa --> */}
