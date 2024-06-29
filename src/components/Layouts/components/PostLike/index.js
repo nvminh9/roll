@@ -5,6 +5,7 @@ import default_avatar from '~/resource/images/default_avatar.jpg';
 
 function PostLike({ isOpenComment, isOpenLike, children }) {
     const [newLikes, setNewLikes] = useState();
+    const [isLoadNewLikesDone, setIsLoadNewLikesDone] = useState();
     //
     // id_User của params của Route truyền vào
     //
@@ -23,9 +24,11 @@ function PostLike({ isOpenComment, isOpenLike, children }) {
                 },
             });
             //
-            isMounted && setNewLikes(response.data.data);
+            setNewLikes(response.data.data);
+            setIsLoadNewLikesDone(true);
         } catch (err) {
             console.error(err);
+            setIsLoadNewLikesDone(false);
         }
 
         return () => {
@@ -84,7 +87,7 @@ function PostLike({ isOpenComment, isOpenLike, children }) {
     }
     //
     useEffect(() => {
-        getNewLikes();
+        isOpenLike === true ? getNewLikes() : setIsLoadNewLikesDone(false);
         // isOpenLike
         //     ? (document.getElementById(`post_btnComment_${children.id}`).style =
         //           'color: #3ae374; background-color: rgba(131, 131, 131, 0.438);')
@@ -172,7 +175,7 @@ function PostLike({ isOpenComment, isOpenLike, children }) {
     }
     // -----------------------------------------------------------------
     //
-    return isOpenLike ? (
+    return isLoadNewLikesDone ? (
         <>
             {newLikes.length > 0 ? (
                 <div

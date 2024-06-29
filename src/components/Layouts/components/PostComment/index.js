@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 
 function PostComment({ openComment, isOpenComment, isOpenLike, children }) {
     const [newComments, setNewComments] = useState();
+    const [isLoadNewCommentsDone, setIsLoadNewCommentsDone] = useState(false);
     //
     // id_User của params của Route truyền vào
     //
@@ -28,10 +29,12 @@ function PostComment({ openComment, isOpenComment, isOpenLike, children }) {
             // }
             //
             setNewComments(response.data.data);
+            setIsLoadNewCommentsDone(true);
             //
             isLoadDone = true;
         } catch (err) {
             console.error(err);
+            setIsLoadNewCommentsDone(false);
         }
 
         return () => {
@@ -121,7 +124,7 @@ function PostComment({ openComment, isOpenComment, isOpenLike, children }) {
     };
     //
     useEffect(() => {
-        getNewComments();
+        isOpenComment === true ? getNewComments() : setIsLoadNewCommentsDone(false);
         //
         if (newComments) {
             document.getElementById(`post_comment_count_${children.id}`).innerText = newComments.length;
@@ -216,7 +219,7 @@ function PostComment({ openComment, isOpenComment, isOpenLike, children }) {
     // console.log(commentList);
     // console.log('Open Comment: ', isOpenComment);
 
-    return isOpenComment ? (
+    return isLoadNewCommentsDone ? (
         <>
             {children.comments?.length > 0 ? (
                 <div
