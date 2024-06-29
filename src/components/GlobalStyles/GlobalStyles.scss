@@ -794,6 +794,12 @@ body {
     background-color: #4545453a;
     cursor: pointer;
 }
+.posterInMessageNoti:hover {
+    // background-color: #d9d9d9;
+    background-color: #373737;
+    color: black;
+    cursor: pointer;
+}
 .backGroundBoxMessage {
     // background-image: url('../../resource/images/background_auth.avif');
     // background-image: url('https://cdn.vectorstock.com/i/preview-1x/34/27/blue-abstract-gradient-background-vector-38663427.jpg');
@@ -818,6 +824,26 @@ body {
 }
 
 .searchInMessage::-webkit-scrollbar-thumb {
+    /* background-color: #000000; */
+    background-color: #87878750;
+    border-radius: 20px;
+}
+#boxMessageContainerID {
+}
+#boxMessageContainerID::-webkit-scrollbar-track {
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+    background-color: none;
+    border-radius: 5px;
+}
+
+#boxMessageContainerID::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    border-radius: 5px;
+    background-color: none;
+}
+
+#boxMessageContainerID::-webkit-scrollbar-thumb {
     /* background-color: #000000; */
     background-color: #87878750;
     border-radius: 20px;
@@ -1474,6 +1500,36 @@ body {
     100% {
         transform: rotate(360deg);
     }
+}
+/* ---------------------------------------------------------------------------------------- */
+
+/* -------------------------------*** CSS THÔNG BÁO TIN NHẮN MỚI ***------------------------------------ */
+#messageNotificationContainerID {
+    transition: opacity 0.5s ease-out; /* Áp dụng transition cho thuộc tính opacity */
+    -webkit-animation: fadeOut 6s ease-in-out;
+    animation: fadeOut 6s ease-in-out;
+    transition: all 6s;
+    opacity: 0;
+}
+
+// #messageNotificationContainerID.hidden {
+//     opacity: 0;
+// }
+
+@keyframes fadeOut {
+    0% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+}
+
+/* Sử dụng animation để mờ đi trong 3 giây */
+#messageNotificationContainerID.fadeOut {
+    animation: fadeOut 4s ease-in-out;
 }
 /* ---------------------------------------------------------------------------------------- */
 

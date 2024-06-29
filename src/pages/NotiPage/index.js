@@ -3,6 +3,8 @@ import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '~/ThemeContext';
 import LoiMoiGuiDen from '~/components/Layouts/components/LoiMoiGuiDen';
 import axios from '~/api/axios';
+import UserInMessageNoti from './UserInMessageNoti';
+import { Link } from 'react-router-dom';
 
 function NotiPage() {
     const theme = useContext(ThemeContext);
@@ -13,6 +15,9 @@ function NotiPage() {
     const [isOpenTinNhan, setIsOpenTinNhan] = useState(false);
     //
     const [listLoiMoiGuiDen, setListLoiMoiGuiDen] = useState();
+    const [lastestMessages, setLastestMessages] = useState();
+    //
+    const [userInfos, setUserInfos] = useState();
     //
     // hàm mở tb tương tác
     const openTuongTac = async (e) => {
@@ -67,13 +72,37 @@ function NotiPage() {
             // document.getElementById('btnProfileFriendListID').style = 'border-bottom: 3px solid transparent';
         }
     };
-
+    // lấy tin nhắn mới nhất
+    const getLastestMessages = async (e) => {
+        //
+        const access_token = localStorage.getItem('rAct_T').slice(0, -14);
+        // axios
+        try {
+            const response = await axios.get(`/api/lastestMessages/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${access_token}`,
+                },
+            });
+            //
+            setLastestMessages(response.data);
+            //
+        } catch (err) {
+            console.error(err);
+        }
+    };
     //
     useEffect(() => {
+        //
+        getLastestMessages();
+        //
         document.title = 'Thông báo / Roll';
         //
         document.getElementById('headerTitleID').innerText = 'Thông báo';
     }, []);
+    //
+    console.log('lastestMessages: ');
+    console.log(lastestMessages);
 
     return (
         <>
@@ -176,35 +205,89 @@ function NotiPage() {
                     {isOpenTinNhan ? (
                         <>
                             {/* <!-- Thông báo Tin nhắn --> */}
-                            <div className="row postWrapper">
-                                <div className="col l-12 m-12 c-12 postContainer">
-                                    <div
-                                        className="col l-12 m-12 c-12 postBack postHeader"
-                                        style={{ borderRadius: '15px', border: '.5px solid whitesmoke' }}
-                                    >
+                            <div className="row postWrapper" style={{ display: 'grid' }}>
+                                {lastestMessages?.data?.length ? (
+                                    <>
+                                        {lastestMessages.data.map((lastestmessage) => (
+                                            <>
+                                                <Link
+                                                    to={`/message/${lastestmessage.sender_id}`}
+                                                    style={{ textDecoration: 'none' }}
+                                                >
+                                                    <div
+                                                        className="col l-12 m-12 c-12 postContainer"
+                                                        style={{ background: 'none' }}
+                                                    >
+                                                        <div
+                                                            className="col l-12 m-12 c-12 postBack postHeader posterInMessageNoti"
+                                                            style={{
+                                                                borderRadius: '15px',
+                                                                border: '.5px solid whitesmoke',
+                                                                transition: 'all .2s',
+                                                            }}
+                                                        >
+                                                            <div
+                                                                className="poster"
+                                                                style={{ justifyContent: 'left', alignItems: 'center' }}
+                                                            >
+                                                                <UserInMessageNoti>
+                                                                    {lastestmessage.sender_id}
+                                                                </UserInMessageNoti>
+                                                                {/* <div className="posterAvatar">
+                                                                    <button className="btnPosterAvatar">
+                                                                        <img
+                                                                            src="https://i.pinimg.com/236x/5a/e1/9a/5ae19a4705e9083c1ed5efcb99ceaf94.jpg"
+                                                                            alt=""
+                                                                        ></img>
+                                                                    </button>
+                                                                </div>
+                                                                <div className="posterInfo" style={{ textAlign: 'left' }}>
+                                                                    <button
+                                                                        style={{ color: 'whitesmoke', fontSize: '17px' }}
+                                                                    >
+                                                                        <span
+                                                                            className="posterName"
+                                                                            style={{ color: 'whitesmoke' }}
+                                                                        >
+                                                                            Huy
+                                                                        </span>{' '}
+                                                                        đã thích bài viết của bạn
+                                                                    </button>
+                                                                </div> */}
+                                                                <h4
+                                                                    style={{
+                                                                        fontWeight: '300',
+                                                                        fontSize: '18px',
+                                                                        color: 'whitesmoke',
+                                                                        textAlign: 'center',
+                                                                        margin: '5px',
+                                                                        color: 'lightgrey',
+                                                                    }}
+                                                                >
+                                                                    {lastestmessage.message}
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            </>
+                                        ))}
+                                    </>
+                                ) : (
+                                    <>
                                         <div
-                                            className="poster"
-                                            style={{ justifyContent: 'left', alignItems: 'center' }}
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                            }}
                                         >
-                                            <div className="posterAvatar">
-                                                <button className="btnPosterAvatar">
-                                                    <img
-                                                        src="https://i.pinimg.com/236x/5a/e1/9a/5ae19a4705e9083c1ed5efcb99ceaf94.jpg"
-                                                        alt=""
-                                                    ></img>
-                                                </button>
-                                            </div>
-                                            <div className="posterInfo" style={{ textAlign: 'left' }}>
-                                                <button style={{ color: 'whitesmoke', fontSize: '17px' }}>
-                                                    <span className="posterName" style={{ color: 'whitesmoke' }}>
-                                                        Huy
-                                                    </span>{' '}
-                                                    đã thích bài viết của bạn
-                                                </button>
-                                            </div>
+                                            <i className="fa-solid fa-spinner newFeedsLoad"></i>
                                         </div>
-                                    </div>
-                                </div>
+                                    </>
+                                )}
                             </div>
                         </>
                     ) : (

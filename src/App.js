@@ -17,6 +17,8 @@ import Login from './components/Login';
 import Register from './components/Register';
 import RequireAuth from './components/RequireAuth';
 import BoxMessage from './components/Layouts/components/BoxMessage';
+import axios from './api/axios';
+import Pusher from 'pusher-js';
 
 const ROLES = {
     Admin: '5150',
@@ -25,6 +27,7 @@ const ROLES = {
 };
 
 function App() {
+    //
     return (
         <Routes>
             {/* public routes */}

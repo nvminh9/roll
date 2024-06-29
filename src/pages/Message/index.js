@@ -14,6 +14,7 @@ function Message() {
     const [isSubmitNewSearchInMessage, setIsSubmitNewSearchInMessage] = useState();
     const [searchResultInMessage, setSearchResultInMessage] = useState();
     //
+    const [boxMessages, setBoxMessages] = useState();
     //
     const handleSearchInMessage = async (e) => {
         e.preventDefault();
@@ -42,6 +43,26 @@ function Message() {
     //
     const hideResultSearchInMessage = () => {
         document.getElementById('resultSearchInMessageID').style.display = 'none';
+    };
+    //
+    const getBoxMessages = async (e) => {
+        const access_token = localStorage.getItem('rAct_T').slice(0, -14);
+        // axios
+        try {
+            const response = await axios.get(`/api/boxMessages/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${access_token}`,
+                },
+            });
+            //
+            setBoxMessages(response.data);
+            //
+            console.log(response);
+            //
+        } catch (err) {
+            console.error(err);
+        }
     };
     //
     // Hàm tính thời gian
@@ -95,6 +116,9 @@ function Message() {
     }
     //
     useEffect(() => {
+        //
+        getBoxMessages();
+        //
         document.title = 'Nhắn tin / Roll';
         //
         document.getElementById('headerTitleID').innerText = 'Nhắn tin';
@@ -273,72 +297,89 @@ function Message() {
                     className="col l-12 m-12 c-12 listBoxMessage"
                     style={{ height: '100%', width: '100%', display: 'grid', overflowY: 'auto', overflowX: 'hidden' }}
                 >
-                    <Link to={`/message/111111139`} style={{ textDecoration: 'none' }}>
-                        <div
-                            className="poster posterInMessage"
-                            style={{
-                                position: 'relative',
-                                display: 'flex',
-                                justifyContent: 'left',
-                                alignItems: 'center',
-                                padding: '10px',
-                                width: '95%',
-                                margin: '10px auto',
-                                borderRadius: '10px',
-                            }}
-                        >
-                            <div className="posterAvatar">
-                                <button className="btnPosterAvatar" style={{ background: 'none', border: 'none' }}>
-                                    <img
-                                        src={default_avatar}
-                                        alt=""
-                                        style={{
-                                            verticalAlign: 'middle',
-                                            width: '55px',
-                                            height: '55px',
-                                            borderRadius: '50%',
-                                            objectPosition: 'center',
-                                            objectFit: 'cover',
-                                        }}
-                                    ></img>
-                                </button>
-                            </div>
-                            <div className="posterInfo" style={{ display: 'grid', margin: '0px 10px' }}>
-                                <Link to={`/profile/1111111143`} style={{ textDecoration: 'none' }}>
-                                    <span
-                                        className="posterName posterInListMessage"
-                                        style={{ color: theme === 'dark' ? 'whitesmoke' : 'black' }}
-                                    >
-                                        Minh
-                                    </span>
-                                </Link>
-                                <span
-                                    className="posterTime"
-                                    style={{ margin: '5px', fontSize: '13px', fontWeight: '300', color: 'dimgray' }}
-                                >
-                                    Hello...{' '}
-                                </span>
-                            </div>
-                            <div className="posterInfo" style={{ position: 'absolute', right: '10px' }}>
-                                <button
-                                    className="btnToBoxMessage"
-                                    style={{
-                                        textDecoration: 'none',
-                                        color: 'black',
-                                        background: 'white',
-                                        border: 'none',
-                                        cursor: 'pointer',
-                                        padding: '10px 13px',
-                                        borderRadius: '50%',
-                                    }}
-                                >
-                                    <span id="" className="posterTime">
-                                        <FontAwesomeIcon icon={faArrowRight} />
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </Link>
+                    <h4 style={{ fontWeight: '600', fontSize: '18px', margin: '25px', marginBottom: '0px' }}>
+                        Những người đã trò chuyện:
+                    </h4>
+                    {boxMessages?.data?.length ? (
+                        <>
+                            {boxMessages.data.map((boxMessage) => (
+                                <>
+                                    <Link to={`/message/${boxMessage.user.id}`} style={{ textDecoration: 'none' }}>
+                                        <div
+                                            className="poster posterInMessage"
+                                            style={{
+                                                position: 'relative',
+                                                display: 'flex',
+                                                justifyContent: 'left',
+                                                alignItems: 'center',
+                                                padding: '10px',
+                                                width: '95%',
+                                                margin: '10px auto',
+                                                borderRadius: '10px',
+                                            }}
+                                        >
+                                            <div className="posterAvatar">
+                                                <button
+                                                    className="btnPosterAvatar"
+                                                    style={{ background: 'none', border: 'none' }}
+                                                >
+                                                    <img
+                                                        src={
+                                                            boxMessage.user.avatar
+                                                                ? boxMessage.user.avatar
+                                                                : default_avatar
+                                                        }
+                                                        alt=""
+                                                        style={{
+                                                            verticalAlign: 'middle',
+                                                            width: '55px',
+                                                            height: '55px',
+                                                            borderRadius: '50%',
+                                                            objectPosition: 'center',
+                                                            objectFit: 'cover',
+                                                        }}
+                                                    ></img>
+                                                </button>
+                                            </div>
+                                            <div className="posterInfo" style={{ display: 'grid', margin: '0px 10px' }}>
+                                                <Link
+                                                    to={`/profile/${boxMessage.user.id}`}
+                                                    style={{ textDecoration: 'none' }}
+                                                >
+                                                    <span
+                                                        className="posterName posterInListMessage"
+                                                        style={{ color: theme === 'dark' ? 'whitesmoke' : 'black' }}
+                                                    >
+                                                        {boxMessage.user.name}
+                                                    </span>
+                                                </Link>
+                                            </div>
+                                            <div className="posterInfo" style={{ position: 'absolute', right: '10px' }}>
+                                                <button
+                                                    className="btnToBoxMessage"
+                                                    style={{
+                                                        textDecoration: 'none',
+                                                        color: 'black',
+                                                        background: 'white',
+                                                        border: 'none',
+                                                        cursor: 'pointer',
+                                                        padding: '10px 13px',
+                                                        borderRadius: '50%',
+                                                    }}
+                                                >
+                                                    <span id="" className="posterTime">
+                                                        <FontAwesomeIcon icon={faArrowRight} />
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </>
+                            ))}
+                        </>
+                    ) : (
+                        <></>
+                    )}
                 </div>
             </div>
         </>

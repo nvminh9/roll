@@ -3,10 +3,13 @@ import { ThemeContext } from '~/ThemeContext';
 import Story from '../Story';
 import default_avatar from '~/resource/images/default_avatar.jpg';
 import axios from '~/api/axios';
+import Pusher from 'pusher-js';
+import NotificationMessage from '../NotificationMessage';
 
 const RightContainer = () => {
     const theme = useContext(ThemeContext);
     const [listStory, setListStory] = useState();
+    //
     // Hàm lấy Bài viết
     const getListStory = async () => {
         let isMounted = true;
@@ -151,10 +154,13 @@ const RightContainer = () => {
     }, 15000);
     // -----------------------------------------------------------------
 
+    //
     return (
         <>
             {/* <!-- Phần khung bên phải --> */}
-            <div id="rightContainerID" className="col l-3 m-0 c-0 rightContainer">
+            <div id="rightContainerID" className="col l-3 m-0 c-0 rightContainer" style={{ position: 'relative' }}>
+                {/* Thông báo PopUp Message */}
+                <NotificationMessage></NotificationMessage>
                 {/* <!-- Phần thừa để đẩy bài đầu xuống ko bị che --> */}
                 <div className="row headerBack"></div>
                 <div className="col l-12 m-12 c-12 storyContainer">

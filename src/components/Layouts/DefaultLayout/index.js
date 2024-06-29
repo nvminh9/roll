@@ -8,6 +8,10 @@ import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
 const DefaultLayout = () => {
+    //
+    // console.log('newMessageNotification:');
+    // console.log(newMessageNotification);
+    //
     useEffect(() => {
         document.title = 'Roll';
         // hide HeaderBar khi cuộn
